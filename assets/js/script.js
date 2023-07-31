@@ -88,13 +88,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
         window.scrollTo(0, 0);
 
         // Check if the link is "Gallery" and the screen width is at least 1024px
-        if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 1024px)").matches) {
-          navBar.classList.add("navbar-gallery");
-          navBar.classList.remove("navbar");
-        } else {
-          navBar.classList.remove("navbar-gallery");
-          navBar.classList.add("navbar");
-        }
+// Toggle the "gallery" class based on the condition
+        navBar.classList.toggle("gallery", this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 1024px)").matches);
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");

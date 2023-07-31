@@ -1457,22 +1457,20 @@ main {
     position: absolute;
     bottom: auto;
     top: 0;
-    left: auto;
     right: 0;
+    left: auto;
     width: max-content;
     border-radius: 0 20px;
     padding: 0 20px;
     box-shadow: none;
+    transition: all var(--transition-1);
   }
-  .navbar-gallery {
+
+  .navbar.gallery {
     position: absolute;
-    bottom: auto;
-    top: 0;
-    left: auto;
-    right: 0;
     width: max-content;
-    border-radius: 0 20px;
-    border: 1px solid var(--jet);
+    border-radius: none;
+    border: solid 1px;
     padding: 0 20px;
     box-shadow: none;
   }
