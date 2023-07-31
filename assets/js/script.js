@@ -70,7 +70,6 @@ for (let i = 0; i < filterBtn.length; i++) {
     lastClickedBtn = this;
 
   });
-
 }
 
 // page navigation variables
@@ -87,9 +86,16 @@ for (let i = 0; i < navigationLinks.length; i++) {
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
 
-        // Check if the link is "Gallery" and the screen width is at least 1024px
-// Toggle the "gallery" class based on the condition
-        navBar.classList.toggle("gallery", this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 1024px)").matches);
+        if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 1024px)").matches) {
+          navBar.classList.add("gallery");
+        } else {
+          navBar.classList.remove("gallery");
+        }
+        if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 320px)").matches) {
+          sidebar.classList.add("hide");
+        } else {
+          sidebar.classList.remove("hide");
+        }
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
