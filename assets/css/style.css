@@ -520,6 +520,8 @@ main {
 
 
 
+
+
 /*-----------------------------------*\
   #ABOUT
 \*-----------------------------------*/
@@ -1449,17 +1451,6 @@ main {
 
   /**
    * NAVBAR
-    when clicked on gallery
-    position: absolute;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: max-content;
-    border: none;
-    border-radius: 0;
-    background: transparent;
    */
 
   .navbar {
@@ -1470,6 +1461,18 @@ main {
     right: 0;
     width: max-content;
     border-radius: 0 20px;
+    padding: 0 20px;
+    box-shadow: none;
+  }
+  .navbar-gallery {
+    position: absolute;
+    bottom: auto;
+    top: 0;
+    left: auto;
+    right: 0;
+    width: max-content;
+    border-radius: 0 20px;
+    border: 1px solid var(--jet);
     padding: 0 20px;
     box-shadow: none;
   }

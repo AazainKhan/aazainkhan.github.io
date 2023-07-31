@@ -76,22 +76,30 @@ for (let i = 0; i < filterBtn.length; i++) {
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
+const navBar = document.querySelector(".navbar");
 
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
-
     for (let i = 0; i < pages.length; i++) {
       if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
+
+        // Check if the link is "Gallery" and the screen width is at least 1024px
+        if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 1024px)").matches) {
+          navBar.classList.add("navbar-gallery");
+          navBar.classList.remove("navbar");
+        } else {
+          navBar.classList.remove("navbar-gallery");
+          navBar.classList.add("navbar");
+        }
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
       }
     }
-
   });
 }
 
