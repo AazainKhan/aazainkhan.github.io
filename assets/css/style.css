@@ -1016,7 +1016,7 @@ main {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: blue;
+
   z-index: -1; /* Ensure the overlay appears above other elements */
   display: none;
 
@@ -1025,6 +1025,11 @@ main {
 .gallery-overlay.active {
   display: block;
 }
+
+.gallery-content{
+
+}
+
 
 
 /*-----------------------------------*\
