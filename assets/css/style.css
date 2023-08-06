@@ -165,7 +165,6 @@ article {
   border: 1px solid var(--jet);
   border-radius: 20px;
   padding: 15px;
-  box-shadow: var(--shadow-1);
   z-index: 1;
 }
 
@@ -488,7 +487,6 @@ main {
   backdrop-filter: blur(15px);
   border: 1px solid var(--jet);
   border-radius: 12px 12px 0 0;
-  box-shadow: var(--shadow-2);
   z-index: 5;
 }
 
@@ -1009,9 +1007,25 @@ main {
 .gallery {
   background: transparent;
   border: none;
-  box-shadow: var(--shadow-1);
   z-index: 1;
 }
+
+.gallery-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: blue;
+  z-index: -1; /* Ensure the overlay appears above other elements */
+  display: none;
+
+}
+
+.gallery-overlay.active {
+  display: block;
+}
+
 
 /*-----------------------------------*\
   #RESPONSIVE
@@ -1443,7 +1457,6 @@ main {
   .sidebar,
   article {
     width: 950px;
-    box-shadow: var(--shadow-5);
   }
 
 
@@ -1488,7 +1501,6 @@ main {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    border: solid 1px;
     padding: 0 20px;
     box-shadow: none;
   }

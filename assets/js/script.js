@@ -76,6 +76,7 @@ for (let i = 0; i < filterBtn.length; i++) {
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 const navBar = document.querySelector(".navbar");
+const galleryOverlay = document.querySelector(".gallery-overlay");
 
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
@@ -93,14 +94,16 @@ for (let i = 0; i < navigationLinks.length; i++) {
         }
         if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 320px)").matches) {
           sidebar.classList.add("hide");
+          galleryOverlay.classList.add("active");
         } else {
           sidebar.classList.remove("hide");
+          galleryOverlay.classList.remove("active");
         }
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
+        
       }
     }
   });
 }
-
