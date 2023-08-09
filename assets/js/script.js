@@ -86,6 +86,20 @@ for (let i = 0; i < navigationLinks.length; i++) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
+        const galleryContent = document.querySelector('.gallery-content');
+        const galleryImages = document.querySelectorAll('.gallery-img');
+  
+        gsap.from(galleryContent, {
+          y: 100,
+          duration: 1,
+          ease: 'back',
+        });
+
+        gsap.fromTo(galleryImages, {
+          y: 100}, {
+          duration: 1,
+          y: 0,
+          stagger: 0.2,});
 
         if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 1024px)").matches) {
           navBar.classList.add("gallery");
@@ -95,6 +109,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
         if (this.innerHTML.toLowerCase() === "gallery" && window.matchMedia("(min-width: 320px)").matches) {
           sidebar.classList.add("hide");
           galleryOverlay.classList.add("active");
+          
         } else {
           sidebar.classList.remove("hide");
           galleryOverlay.classList.remove("active");
