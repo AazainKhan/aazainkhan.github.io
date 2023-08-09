@@ -1027,7 +1027,7 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   filter: blur(10px); /* Initial blur effect */
-  transition: background-image 0.5s var(--transition-1), filter 0.5s ease;
+  transition: background-image 0.5s var(--transition-1), filter 0.5s ease-in-out;
 }
 
 .gallery-overlay::before {
