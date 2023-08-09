@@ -88,16 +88,11 @@ for (let i = 0; i < navigationLinks.length; i++) {
         window.scrollTo(0, 0);
         const galleryContent = document.querySelector('.gallery-content');
         const galleryImages = document.querySelectorAll('.gallery-img');
-  
-        gsap.from(galleryContent, {
-          y: 100,
-          duration: 1,
-          ease: 'back',
-        });
 
         gsap.fromTo(galleryImages, {
           y: 100}, {
           duration: 1,
+          ease: "back",
           y: 0,
           stagger: 0.2,});
 
