@@ -142,3 +142,17 @@ const observer = new IntersectionObserver((entries, observer) => {
 galleryImages.forEach(image => {
   observer.observe(image);
 });
+
+// Use ScrollTrigger to scale the background image
+ScrollTrigger.create({
+  trigger: galleryOverlay,
+  start: 'top top',
+  end: 'bottom bottom',
+  onUpdate: self => {
+    const progress = self.progress; // Progress value between 0 and 1
+    const scale = 1 + progress * 2; // Adjust the scale factor as needed
+
+    // Apply the scaling to the background image
+    galleryOverlay.style.transform = `scale(${scale})`;
+  },
+});
