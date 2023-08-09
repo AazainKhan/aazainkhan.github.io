@@ -165,6 +165,7 @@ article {
   border: 1px solid var(--jet);
   border-radius: 20px;
   padding: 15px;
+  box-shadow: var(--shadow-1);
   z-index: 1;
 }
 
@@ -487,6 +488,7 @@ main {
   backdrop-filter: blur(15px);
   border: 1px solid var(--jet);
   border-radius: 12px 12px 0 0;
+  box-shadow: var(--shadow-2);
   z-index: 5;
 }
 
@@ -513,8 +515,6 @@ main {
 .navbar-link.active {
   color: var(--orange-yellow-crayola);
 }
-
-
 
 
 
@@ -1001,94 +1001,8 @@ main {
 }
 
 /*-----------------------------------*\
-  #GALLERY
-\*-----------------------------------*/
-
-.gallery {
-  background: transparent;
-  border: none;
-  z-index: 1;
-}
-
-.gallery-hero > h1 {
-  color: var(--light-gray);
-  padding: 1em 0 1em 0;
-}
-
-.gallery-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  display: none;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(10px); /* Initial blur effect */
-  transition: background-image 0.5s var(--transition-1), filter 0.5s ease-in-out;
-}
-
-.gallery-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Adjust the opacity as needed */
-}
-
-.gallery-overlay.active::before {
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-}
-
-
-.gallery-overlay.active {
-  display: grid;
-}
-
-.gallery-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.gallery-images {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12em;
-}
-
-.gallery-img {
-  width: 100%;
-  height: 100%;
-  padding: 0.2em;
-  margin-top: 10vmin;
-  margin-bottom: 10vmin;
-}
-
-/*-----------------------------------*\
   #RESPONSIVE
 \*-----------------------------------*/
-
-/**
- * responsive larger than 320px screen
- */
-
-@media (min-width: 320px) {
-
-  .sidebar.hide {
-    display: none;
-  }
-
-}
-
-
 
 /**
  * responsive larger than 450px screen
@@ -1107,6 +1021,7 @@ main {
   }
 
 }
+
 
 /**
  * responsive larger than 580px screen
@@ -1366,6 +1281,10 @@ main {
 
 }
 
+
+
+
+
 /**
  * responsive larger than 768px screen
  */
@@ -1472,6 +1391,10 @@ main {
 
 }
 
+
+
+
+
 /**
  * responsive larger than 1024px screen
  */
@@ -1494,6 +1417,8 @@ main {
 
   }
 
+
+
   /**
    * REUSED STYLE
    */
@@ -1501,6 +1426,7 @@ main {
   .sidebar,
   article {
     width: 950px;
+    box-shadow: var(--shadow-5);
   }
 
 
@@ -1529,23 +1455,10 @@ main {
     position: absolute;
     bottom: auto;
     top: 0;
-    right: 0;
     left: auto;
+    right: 0;
     width: max-content;
     border-radius: 0 20px;
-    padding: 0 20px;
-    box-shadow: none;
-    backdrop-filter: none;
-
-  }
-
-  .navbar.gallery {
-    position: absolute;
-    width: max-content;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
     padding: 0 20px;
     box-shadow: none;
   }
@@ -1591,6 +1504,8 @@ main {
   }
 
 }
+
+
 
 /**
  * responsive larger than 1250px screen
