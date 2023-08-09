@@ -117,3 +117,28 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
   });
 }
+
+// Get references to elements
+const galleryImages = document.querySelectorAll('.gallery-img');
+
+// Options for the Intersection Observer
+const options = {
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.5, // Trigger when at least 50% of the image is in the viewport
+};
+
+// Create the Intersection Observer
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const imgUrl = entry.target.src;
+      galleryOverlay.style.backgroundImage = `url(${imgUrl})`;
+    }
+  });
+}, options);
+
+// Observe each gallery image
+galleryImages.forEach(image => {
+  observer.observe(image);
+});
