@@ -118,23 +118,23 @@
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
+            <button class="navbar-link active" data-nav-link name="About">About</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
+            <button class="navbar-link" data-nav-link name="Resume">Resume</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Projects</button>
+            <button class="navbar-link" data-nav-link name="Projects">Projects</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Blog</button>
+            <button class="navbar-link" data-nav-link name="Blog">Blog</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Gallery</button>
+            <button class="navbar-link" data-nav-link name="Gallery">Gallery</button>
           </li>
 
         </ul>
@@ -151,20 +151,19 @@
           <h2 class="h2 article-title">About me</h2>
         </header>
 
-        <section class="about-text">
-          <p>
-            I'm a software enthusiast, explorer, and developer with experince in <b>Front-end developement</b> from
-            Toronto, Canada. I'm currently studying <b>Software Engineering Technology @ Centennial College</b>.
-            I take an active interest in learning and leveraging <b>software, design, and business</b> to solve
-            real-world problems. I enjoy experimenting with new and exisitng mediums
-            to create my <b>applications, artworks, and solutions.</b>
-          </p>
-          <p>
-            <b>I am constantly on the lookout for new opportunities!</b> I have experience in front-end development 
-            through past hackathons and projects. Feel free to reach out and <a class="about-link" href="mailto:aazainkhan@gmail.com" target="_blank"><u>shoot me an email</a></u>, 
-            I'd love to hear what you have planned!
-          </p>
-          </section>
+<section class="about-text">
+  <p>
+    I'm a software enthusiast, explorer, and developer with experience in <b>Front-end development</b> from
+    Toronto, Canada. I'm currently studying <b>Software Engineering Technology @ Centennial College</b>.
+    I take an active interest in learning and leveraging <b>software, design, and business</b> to solve
+    real-world problems. I enjoy experimenting with new and existing mediums to create my <b>applications, artworks, and solutions.</b>
+  </p>
+  <p>
+    <b>I am constantly on the lookout for new opportunities!</b> I have experience in front-end development 
+    through past hackathons and projects. Feel free to reach out and <a class="about-link" href="mailto:aazainkhan@gmail.com" target="_blank"><u>shoot me an email</u></a>, 
+    I'd love to hear what you have planned!
+  </p>
+</section>
 
 
         <!--
@@ -385,31 +384,22 @@
           </ul>
 
           <div class="filter-select-box">
-
             <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
+              <span class="select-value" data-select-value>Select category</span>
+              <span class="select-icon">
                 <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
+              </span>
             </button>
-
             <ul class="select-list">
-
               <li class="select-item">
                 <button data-select-item>All</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Web development</button>
               </li>
-
             </ul>
-
           </div>
-
+                    
           <ul class="project-list">
 
             <li class="project-item  active" data-filter-item data-category="web development">
@@ -508,6 +498,18 @@
       -->
 
       <article class="gallery" data-page="gallery">
+        <header>
+          <h2 class="h2 article-title">Gallery</h2>
+        </header>
+          <div class="gallery-content">
+            <div class="gallery-images">
+              <img src="./assets/images/gallery_1.jpg" alt="Gallery Image 1" class="gallery-img">
+              <img src="./assets/images/gallery_2.jpg" alt="Gallery Image 2" class="gallery-img">
+              <img src="./assets/images/gallery_3.jpg" alt="Gallery Image 3" class="gallery-img">
+              <img src="./assets/images/gallery_4.jpg" alt="Gallery Image 4" class="gallery-img">
+              <img src="./assets/images/gallery_5.jpg" alt="Gallery Image 5" class="gallery-img">
+            </div>
+        </div>
       </article>
 
     </div>
@@ -517,7 +519,9 @@
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="./assets/js/script.js" defer></script>
 
   <!--
     - ionicon link
