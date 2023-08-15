@@ -1,4 +1,6 @@
-export default function About() {
+
+
+function About() {
     return (
         <>
             <article className="about active" data-page="about">
@@ -20,9 +22,6 @@ export default function About() {
                         I'd love to hear what you have planned!
                     </p>
                 </section>
-
-
-
 
                 <section className="service">
 
@@ -102,3 +101,5 @@ export default function About() {
         </>
     )
 }
+
+export default About;
