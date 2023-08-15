@@ -151,20 +151,19 @@
           <h2 class="h2 article-title">About me</h2>
         </header>
 
-        <section class="about-text">
-          <p>
-            I'm a software enthusiast, explorer, and developer with experince in <b>Front-end developement</b> from
-            Toronto, Canada. I'm currently studying <b>Software Engineering Technology @ Centennial College</b>.
-            I take an active interest in learning and leveraging <b>software, design, and business</b> to solve
-            real-world problems. I enjoy experimenting with new and exisitng mediums
-            to create my <b>applications, artworks, and solutions.</b>
-          </p>
-          <p>
-            <b>I am constantly on the lookout for new opportunities!</b> I have experience in front-end development 
-            through past hackathons and projects. Feel free to reach out and <a class="about-link" href="mailto:aazainkhan@gmail.com" target="_blank"><u>shoot me an email</a></u>, 
-            I'd love to hear what you have planned!
-          </p>
-          </section>
+<section class="about-text">
+  <p>
+    I'm a software enthusiast, explorer, and developer with experience in <b>Front-end development</b> from
+    Toronto, Canada. I'm currently studying <b>Software Engineering Technology @ Centennial College</b>.
+    I take an active interest in learning and leveraging <b>software, design, and business</b> to solve
+    real-world problems. I enjoy experimenting with new and existing mediums to create my <b>applications, artworks, and solutions.</b>
+  </p>
+  <p>
+    <b>I am constantly on the lookout for new opportunities!</b> I have experience in front-end development 
+    through past hackathons and projects. Feel free to reach out and <a class="about-link" href="mailto:aazainkhan@gmail.com" target="_blank"><u>shoot me an email</u></a>, 
+    I'd love to hear what you have planned!
+  </p>
+</section>
 
 
         <!--
@@ -385,31 +384,22 @@
           </ul>
 
           <div class="filter-select-box">
-
             <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
+              <span class="select-value" data-select-value>Select category</span>
+              <span class="select-icon">
                 <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
+              </span>
             </button>
-
             <ul class="select-list">
-
               <li class="select-item">
                 <button data-select-item>All</button>
               </li>
-
               <li class="select-item">
                 <button data-select-item>Web development</button>
               </li>
-
             </ul>
-
           </div>
-
+                    
           <ul class="project-list">
 
             <li class="project-item  active" data-filter-item data-category="web development">
@@ -508,11 +498,10 @@
       -->
 
       <article class="gallery" data-page="gallery">
-        <div class="gallery-overlay"></div>
+        <header>
+          <h2 class="h2 article-title">Gallery</h2>
+        </header>
           <div class="gallery-content">
-            <div class="gallery-hero">
-              <h1>Gallery</h1>
-            </div>
             <div class="gallery-images">
               <img src="./assets/images/gallery_1.jpg" alt="Gallery Image 1" class="gallery-img">
               <img src="./assets/images/gallery_2.jpg" alt="Gallery Image 2" class="gallery-img">
@@ -523,6 +512,8 @@
         </div>
       </article>
 
+    </div>
+
   </main>
 
   <!--
@@ -530,7 +521,7 @@
   -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-  <script defer src="./assets/js/script.js" defer></script>
+  <script src="./assets/js/script.js" defer></script>
 
   <!--
     - ionicon link
