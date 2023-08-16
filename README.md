@@ -8,7 +8,7 @@
 [https://aazainkhan.github.io/](https://aazainkhan.github.io/)
 
 ## Credits
-- Static portfolio template from [here](https://github.com/codewithsadee/vcard-personal-portfolio)
+Static portfolio template from [here](https://github.com/codewithsadee/vcard-personal-portfolio)
 
-## Licence
+## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
