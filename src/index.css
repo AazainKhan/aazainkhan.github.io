@@ -990,7 +990,7 @@ main {
 
 .card > div {
   background-color: transparent;
-  background-size: auto 85%;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
   width: 45vh;
@@ -1000,6 +1000,7 @@ main {
   will-change: transform;
   border-radius: 10px;
 }
+
 /*-----------------------------------*\
   #RESPONSIVE
 \*-----------------------------------*/
