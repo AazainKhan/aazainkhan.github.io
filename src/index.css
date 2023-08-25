@@ -549,10 +549,8 @@ main {
   );
   display: block;
   text-align: center;
-  font-weight: 900;
   padding: 0;
   position: relative;
-  text-transform: uppercase;
 }
 .btn-98:before {
   background: var(--text-gradient-yellow);
