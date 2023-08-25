@@ -7,7 +7,7 @@ function Gallery() {
                 <header>
                     <h2 className="h2 article-title">Gallery</h2>
                 </header>
-                    <CardDeck />
+                <h3 className="h3">⚠️ Work in progress ⚠️</h3>
             </article>
         </>
     )
