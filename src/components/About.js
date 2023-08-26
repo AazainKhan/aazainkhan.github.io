@@ -28,17 +28,7 @@ function About() {
                 </p>
                     <button className="btn-98" onClick={toggleMore}>More about me!</button>
                     <div className={`about-more ${showMore ? 'show-more' : ''}`}>
-                        <p>
-                            lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-                            consectetur aliquam, nunc nisl aliquet nunc, vitae tincidunt quam quam vitae nunc. Donec
-                            euismod, nisl eget consectetur aliquam, nunc nisl aliquet nunc, vitae tincidunt quam quam
-                        </p>
-                        <p>
-                            lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget
-                            consectetur aliquam, nunc nisl aliquet nunc, vitae tincidunt quam quam vitae nunc. Donec
-                            euismod, nisl eget consectetur aliquam, nunc nisl aliquet nunc, vitae tincidunt quam quam
-                        </p>
-
+                        <h3 className="h3">⚠️ Work in progress ⚠️</h3>
                     </div>
                 </section>
                 <WhatidoCards />

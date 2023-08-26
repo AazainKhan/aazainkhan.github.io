@@ -85,6 +85,16 @@ function Sidebar() {
                         </li>
                         <li className="social-item">
                             <a
+                                href="https://www.instagram.com/refractiveaazain/"
+                                target="_blank"
+                                className="social-link"
+                            >
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+                        
+                        <li className="social-item">
+                            <a
                                 href="https://www.linkedin.com/in/aazainkhan/"
                                 target="_blank"
                                 className="social-link"

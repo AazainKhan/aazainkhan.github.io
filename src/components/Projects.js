@@ -15,7 +15,6 @@ export default function Projects() {
                             <button className="active" data-filter-btn>All</button>
                         </li>
 
-
                         <li className="filter-item">
                             <button data-filter-btn>Web development</button>
                         </li>
@@ -76,7 +75,6 @@ export default function Projects() {
 
                             </a>
                         </li>
-
 
                     </ul>
 
