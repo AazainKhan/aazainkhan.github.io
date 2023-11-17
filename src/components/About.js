@@ -16,20 +16,16 @@ function About() {
                 </header>
                 <section className="about-text">
                 <p>
-                    I'm a software enthusiast, explorer, and developer with experience in <b>Front-end development</b> from
-                    Toronto, Canada. I'm currently studying <b>Software Engineering Technology @ Centennial College</b>.
-                    I take an active interest in learning and leveraging <b>software, design, and business</b> to solve
-                    real-world problems. I enjoy experimenting with new and existing mediums to create my <b>applications, artworks, and solutions.</b>
+                    Hi, My name is Aazain. I am a second-year software engineering student at
+                    Centennial College in Toronto. I am interested in Full Stack development and
+                    Machine Learning.
+                </p>
+                <p> 
+                    I take an active interest in learning and leveraging software, design, and business to solve real-world problems. I enjoy experimenting with new and existing mediums to create my applications, artworks, and solutions.
                 </p>
                 <p>
-                    <b>I am constantly on the lookout for new opportunities!</b> I have experience in front-end development
-                    through past hackathons and projects. Feel free to reach out and <a className="about-link" href="mailto:aazainkhan@gmail.com" target="_blank"><u>shoot me an email</u></a>,
-                    I'd love to hear what you have planned!
+                I am currently looking for summer 2024 internship opportunities. Feel free to reach out!
                 </p>
-                    <button className="btn-98" onClick={toggleMore}>More about me!</button>
-                    <div className={`about-more ${showMore ? 'show-more' : ''}`}>
-                        <h3 className="h3">⚠️ Work in progress ⚠️</h3>
-                    </div>
                 </section>
                 <WhatidoCards />
             </article>

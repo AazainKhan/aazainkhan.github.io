@@ -48,7 +48,7 @@ function Navbar({ activePage, onClick }) {
                         Blog
                     </button>
                 </li>
-                <li className="navbar-item">
+                {/* <li className="navbar-item">
                     <button
                         className={`navbar-link ${activePage === "Gallery" ? "active" : ""}`}
                         data-nav-link
@@ -57,7 +57,7 @@ function Navbar({ activePage, onClick }) {
                     >
                         Gallery
                     </button>
-                </li>
+                </li> */}
             </ul>
         </nav>
     );
