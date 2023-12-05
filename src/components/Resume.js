@@ -6,6 +6,16 @@ export default function Resume() {
                 <header>
                     <h2 className="h2 article-title">Resume</h2>
                 </header>
+                <a href="https://centennialcollegeedu-my.sharepoint.com/:b:/g/personal/akhan604_my_centennialcollege_ca/EdZBlvWWGYdCquSa58OUUG4BFxkTYfMjnr_vXcYyxio1uw?e=xLS78s" target="_blank">
+                    <button class="form-btn" type="button" data-form-btn>
+                        <ion-icon name="download-outline"></ion-icon>
+                        Resume
+                    </button>
+                </a>
+
+
+
+
 
                 <section className="skill">
 
@@ -19,7 +29,7 @@ export default function Resume() {
                                 <h5 className="h5">Languages</h5>
                             </div>
                             <p className="skills-text">
-                                Python, C++, HTML/CSS, JavaScript, SQL, BASH, GIT
+                                Python, Java, C++, JavaScript, SQL, HTML, CSS, Bash
                             </p>
 
                         </li>
@@ -27,12 +37,11 @@ export default function Resume() {
                         <li className="skills-item">
 
                             <div className="title-wrapper">
-                                <h5 className="h5">Tools</h5>
+                                <h5 className="h5">Tools and Frameworks</h5>
                             </div>
                             <p className="skills-text">
-                                MySQL, GitHub, Figma, Adobe Photoshop, Adobe Illustrator
+                                ReactJS/Redux, TailwindCSS, Node.js, Express.js, MongoDB, PostMan NumPy, Scikit-learn, Pandas, AWS, Figma, Jira, Figma, Adobe Suite, MS Office.
                             </p>
-
                         </li>
 
 
@@ -57,14 +66,12 @@ export default function Resume() {
 
                             <h4 className="h4 timeline-item-title">Centennial College | Artificial Intelligence - Software Engineering Technology (CGPA: 4.0/4.5)</h4>
 
-                            <span>Sept 2021 - Apr 2025</span>
+                            <span>Sept 2022 - Apr 2025</span>
 
                             <p className="timeline-text">
-                                <strong>Relevant Coursework:</strong><br />
-                                - Programming (C++, OOP Concepts, Python, Java) <br />
-                                - Software Engineering (Agile Methods, UX Design, QA, Documentation, Software Development Life Cycle) <br />
-                                - Web Development (HTML, CSS, JavaScript, MariaDB), Database Concepts (SQL, MySQL) <br />
-                                -Artificial Intelligence (Introduction to AI), Unix/Linux OS. Mathematics (Discrete, Linear Algebra, Statistics, Logic).
+                                - <b>GPA: 4.0/4.5</b><br />
+                                - <b>Relevant Coursework:</b> Data Structures & Algorithms, Probability & Statistics, Operating Systems, Full stack development, Software System Design, AI Ethics, Machine Learning, Agile Principles, Software Development Life Cycle, Global Citizenship.<br />
+                                - The Codehort club<br />
                             </p>
 
                         </li>
@@ -89,13 +96,14 @@ export default function Resume() {
 
                             <h4 className="h4 timeline-item-title">Wireless Consultant</h4>
 
-                            <span>2021 — Present</span>
+                            <span>June 2023 — Present</span>
 
                             <p className="timeline-text">
                                 <strong>Staples</strong> <br />
-                                - Proactively sought out new business opportunities by setting up meetings with potential clients to solicit new business in the wireless industry, generating up to 7 contracted sales in a day. <br />
-                                - Delivered exceptional consulting services to individual customers and businesses using personalized needs solutions to build client relations based on honesty, trust, and engagement. <br />
-                                - Managed carrier agreements and financial structures for network plans with consumer and business clients, to meet contractual obligations discreetly and tactfully with organization and attention to detail.
+                                - Performed in the top 20% of wireless consultants in 2023 in Ontario by excelling in personal sales targets.<br />
+                                - Partnered with the store team to create awareness of Staples Wireless offers through referrals resulting in a 50% increase in sales of Bell, Virgin Mobile, and Lucky Mobile services.<br />
+                                - Utilized expert knowledge of products and services towards wireless and wireline solutions for consumer and small business needs using open-ended consulting, resulting in positive customer reviews.<br />
+                                - Collaborated directly with existing and potential clients, providing contract estimates and after-sales support on agreement details, and technology support boosting customer retention and referrals.<br />
                             </p>
 
                         </li>
