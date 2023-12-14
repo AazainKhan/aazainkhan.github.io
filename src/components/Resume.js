@@ -40,7 +40,7 @@ export default function Resume() {
                                 <h5 className="h5">Tools and Frameworks</h5>
                             </div>
                             <p className="skills-text">
-                                ReactJS/Redux, TailwindCSS, Node.js, Express.js, MongoDB, PostMan NumPy, Scikit-learn, Pandas, AWS, Figma, Jira, Figma, Adobe Suite, MS Office.
+                                ReactJS/Redux, TailwindCSS, Node.js, Express.js, MongoDB, PostMan, NumPy, Scikit-learn, Pandas, AWS, Figma, Jira, Figma, Adobe Suite, MS Office.
                             </p>
                         </li>
 
