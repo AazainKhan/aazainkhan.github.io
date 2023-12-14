@@ -6,7 +6,7 @@ export default function Resume() {
                 <header>
                     <h2 className="h2 article-title">Resume</h2>
                 </header>
-                <a href="https://centennialcollegeedu-my.sharepoint.com/:b:/g/personal/akhan604_my_centennialcollege_ca/EdZBlvWWGYdCquSa58OUUG4BFxkTYfMjnr_vXcYyxio1uw?e=7nciXd" target="_blank">
+                <a href="https://centennialcollegeedu-my.sharepoint.com/:b:/g/personal/akhan604_my_centennialcollege_ca/EQO3pN62yGdPiaKTUb_9PWYBV7DwPTIKW64LqqbC3A7vtA?e=NEh3vy" target="_blank">
                     <button class="form-btn" type="button" data-form-btn>
                         <ion-icon name="download-outline"></ion-icon>
                         Resume
