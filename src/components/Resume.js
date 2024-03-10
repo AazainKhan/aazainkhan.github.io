@@ -6,7 +6,7 @@ export default function Resume() {
                 <header>
                     <h2 className="h2 article-title">Resume</h2>
                 </header>
-                <a href="https://centennialcollegeedu-my.sharepoint.com/:b:/g/personal/akhan604_my_centennialcollege_ca/EQO3pN62yGdPiaKTUb_9PWYBV7DwPTIKW64LqqbC3A7vtA?e=NEh3vy" target="_blank">
+                <a href="https://centennialcollegeedu-my.sharepoint.com/:b:/g/personal/akhan604_my_centennialcollege_ca/EYxJtBHK2_lGlEdhbuu1NOwBuAMj47jEBsUL2HD7D_iINA?e=llQog1" target="_blank">
                     <button class="form-btn" type="button" data-form-btn>
                         <ion-icon name="download-outline"></ion-icon>
                         Resume
@@ -26,7 +26,7 @@ export default function Resume() {
                                 <h5 className="h5">Languages</h5>
                             </div>
                             <p className="skills-text">
-                                Python, Java, C++, JavaScript, SQL, HTML, CSS, Bash
+                                Python, Java, C++, JavaScript, SQL, HTML, CSS, Bash.
                             </p>
 
                         </li>
@@ -37,8 +37,7 @@ export default function Resume() {
                                 <h5 className="h5">Tools and Frameworks</h5>
                             </div>
                             <p className="skills-text">
-                                ReactJS/Redux, TailwindCSS, Node.js, Express.js, MongoDB, PostMan, NumPy, Scikit-learn, Pandas, AWS, Figma, Jira, Figma, Adobe Suite, MS Office.
-                            </p>
+                            React, Git, Redux, TailwindCSS, Node.js, .NET, Express, MongoDB, Postman, NumPy, Jupyter, Flask, MySQL, Scikit-learn, Pandas, Figma, Jira, GitHub.                            </p>
                         </li>
 
 
@@ -63,12 +62,13 @@ export default function Resume() {
 
                             <h4 className="h4 timeline-item-title">Centennial College | Artificial Intelligence - Software Engineering Technology (CGPA: 4.0/4.5)</h4>
 
-                            <span>Sept 2022 - Apr 2025</span>
+                            <span>Sept 2022 - Dec 2025</span>
 
                             <p className="timeline-text">
                                 - <b>GPA: 4.0/4.5</b><br />
-                                - <b>Relevant Coursework:</b> Data Structures & Algorithms, Probability & Statistics, Operating Systems, Full stack development, Software System Design, AI Ethics, Machine Learning, Agile Principles, Software Development Life Cycle, Global Citizenship.<br />
-                                - The Codehort club<br />
+                                - <b>Co-op</b><br />
+                                - <b>Relevant Coursework:</b> Data Structures and Algorithms, Discrete Mathematics, Linear Algebra, Operating Systems, Software Testing & Quality, Software Design, Software Requirements, Advanced Database Concepts, Intro to AI, Supervised Learning, Computer Networking.<br />
+                                - Member of Centennial College's coding club, Codehort<br />
                             </p>
 
                         </li>

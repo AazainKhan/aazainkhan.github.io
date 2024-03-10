@@ -22,7 +22,7 @@ function About() {
                     I take an active interest in learning and leveraging software, design, and business to solve real-world problems. I enjoy experimenting with new and existing mediums to create my applications, artworks, and solutions.
                 </p>
                 <p>
-                    I am currently looking for summer 2024 internship opportunities. Feel free to reach out!
+                    I am currently looking for summer 2024 Co-op opportunities. Feel free to reach out!
                 </p>
                 </section>
                 <WhatidoCards />

@@ -18,7 +18,7 @@ function WhatidoCards (){
             <h4 className="h4 service-item-title">Web Development</h4>
 
             <p className="service-item-text">
-                I design and build high-quality web applications which are responsive and user-friendly.
+                I design and build high-quality full-stack web applications which are responsive, accessible and user-friendly.
             </p>
         </div>
 
@@ -31,10 +31,11 @@ function WhatidoCards (){
         </div>
 
         <div className="service-content-box">
-            <h4 className="h4 service-item-title">Problem-Solving</h4>
+            <h4 className="h4 service-item-title">Machine Learning</h4>
 
             <p className="service-item-text">
-                Able to dissect broad and/or complex goals into achievable tasks.
+                I work on real-world problems using machine learning algorithms and data analysis.
+                Using real-world data to train, test and deploy models.
             </p>
         </div>
 
@@ -47,10 +48,10 @@ function WhatidoCards (){
         </div>
 
         <div className="service-content-box">
-            <h4 className="h4 service-item-title">Experiment</h4>
+            <h4 className="h4 service-item-title">Data analysis</h4>
 
             <p className="service-item-text">
-                Explore and pitch technological solutions to real-world problems.
+                I work with data to analyze and visualize it to gain insights and make data-driven decisions in domains like finance, healthcare, academia and more.
             </p>
         </div>
 

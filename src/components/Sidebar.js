@@ -102,6 +102,15 @@ function Sidebar() {
                                 <ion-icon name="logo-linkedin"></ion-icon>
                             </a>
                         </li>
+                        <li className="social-item">
+                            <a
+                                href="https://medium.com/@aazainkhan"
+                                target="_blank"
+                                className="social-link"
+                            >
+                                <ion-icon name="logo-medium"></ion-icon>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </aside>
