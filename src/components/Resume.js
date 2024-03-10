@@ -14,9 +14,6 @@ export default function Resume() {
                 </a>
 
 
-
-
-
                 <section className="skill">
 
                     <h3 className="h3 skills-title">My skills</h3>
@@ -96,7 +93,7 @@ export default function Resume() {
 
                             <h4 className="h4 timeline-item-title">Wireless Consultant</h4>
 
-                            <span>June 2023 — Present</span>
+                            <span>June 2023 — February 2024</span>
 
                             <p className="timeline-text">
                                 <strong>Staples</strong> <br />

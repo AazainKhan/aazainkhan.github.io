@@ -65,24 +65,6 @@ export default function Projects() {
                             </a>
                         </li>
 
-                        <li className="project-item  active" data-filter-item data-category="web development">
-                            <a href="https://github.com/AazainKhan/FNDetectGPT" target="_blank">
-
-                                <figure className="project-img">
-                                    <div className="project-item-icon-box">
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </div>
-
-                                    <img src="./images/project-4.png" alt="LaCucuracha Smash game" loading="lazy" />
-                                </figure>
-
-                                <h3 className="project-title">FNDetectGPT</h3>
-
-                                <p className="project-category">Machine Learning</p>
-
-                            </a>
-                        </li>
-
                     </ul>
 
                 </section>

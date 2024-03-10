@@ -16,15 +16,13 @@ function About() {
                 </header>
                 <section className="about-text">
                 <p>
-                    Hi, My name is Aazain. I am a second-year software engineering student at
-                    Centennial College in Toronto. I am interested in Full Stack development and
-                    Machine Learning.
+                    Hi, I'm Aazain. I'm a second-year software engineering student @ Centennial College specializing in Artificial Intelligence. I have extensive experience working with full-stack software development, project management, and machine learning models.
                 </p>
                 <p> 
                     I take an active interest in learning and leveraging software, design, and business to solve real-world problems. I enjoy experimenting with new and existing mediums to create my applications, artworks, and solutions.
                 </p>
                 <p>
-                I am currently looking for summer 2024 internship opportunities. Feel free to reach out!
+                    I am currently looking for summer 2024 internship opportunities. Feel free to reach out!
                 </p>
                 </section>
                 <WhatidoCards />
