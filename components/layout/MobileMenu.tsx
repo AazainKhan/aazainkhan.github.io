@@ -77,18 +77,9 @@ export function MobileMenu({ links }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-black pt-20"
-            style={{
-              background: "white",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            }}
+            className="fixed inset-0 z-40 pt-20 bg-gradient-to-b from-white/95 to-white dark:from-gray-900/95 dark:to-gray-900 backdrop-blur-sm shadow-lg"
           >
-            <div 
-              className="container mx-auto px-6"
-              style={{
-                background: "inherit",
-              }}
-            >
+            <div className="container mx-auto px-6">
               <nav className="flex flex-col items-center space-y-8 py-8">
                 {links.map((link, index) => (
                   <motion.button
@@ -100,10 +91,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                       link.onClick()
                       setIsOpen(false)
                     }}
-                    className="text-gray-900 dark:text-white text-2xl font-light tracking-wide"
-                    style={{
-                      color: "black",
-                    }}
+                    className="text-gray-900 dark:text-white text-2xl font-light tracking-wide hover:opacity-75 transition-opacity"
                   >
                     {link.name}
                   </motion.button>
