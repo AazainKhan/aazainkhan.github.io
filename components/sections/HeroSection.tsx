@@ -16,6 +16,13 @@ export default function HeroSection({ targetRef }: HeroSectionProps) {
         <AazainAnimation />
       </div>
 
+      {/* Description text overlaid on animation - positioned lower */}
+      <div className="absolute z-10 text-center w-full" style={{ bottom: '25%' }}>
+        <p className="text-gray-600 dark:text-white/60 font-light tracking-wide text-lg md:text-xl">
+          Full-stack developer. AI/ML. Friends/family tech guy.
+        </p>
+      </div>
+
       {/* Scroll Down Animation - Centered at bottom */}
       <div className="absolute bottom-10 left-0 right-0 flex justify-center">
         <ScrollDownAnimation targetRef={targetRef} />

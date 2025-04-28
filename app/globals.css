@@ -11,21 +11,44 @@
   font-display: swap;
 }
 
-/* Add mobile menu custom variables */
 :root {
   --foreground-rgb: 51, 51, 51;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 240, 240, 240;
-  --menu-bg-color: #1f2937; /* Dark background for light mode */
-  --menu-text-color: white;
 }
 
 .dark {
   --foreground-rgb: 240, 240, 240;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-  --menu-bg-color: #f3f4f6; /* Light background for dark mode */
-  --menu-text-color: #111827;
+}
+
+/* Mobile menu blur effect */
+.menu-open {
+  overflow: hidden;
+}
+
+.menu-open main,
+.menu-open header,
+.menu-open section,
+.menu-open footer,
+.menu-open .content-wrapper:not(.mobile-nav):not(.logo-wrapper) {
+  filter: blur(3px) brightness(0.75);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+/* Ensure mobile menu and logo remain clear */
+.mobile-nav,
+.logo-wrapper {
+  filter: none !important;
+  pointer-events: auto !important;
+}
+
+/* Make the logo stay visible above mobile menu */
+.logo-wrapper {
+  position: relative;
+  z-index: 45 !important;
 }
 
 @layer base {

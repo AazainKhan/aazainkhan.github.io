@@ -208,7 +208,7 @@ export default function DynamicFrameLayout() {
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <Switch id="frame-toggle" checked={showFrames} onCheckedChange={setShowFrames} />
-            <label htmlFor="frame-toggle" className="text-sm text-gray-700 dark:text-white/70">
+            <label htmlFor="frame-toggle" className="text-sm font-medium text-gray-700 dark:text-gray-200">
               {showFrames ? "Hide Frames" : "Show Frames"}
             </label>
           </div>
@@ -218,7 +218,7 @@ export default function DynamicFrameLayout() {
               checked={autoplayMode === "all"}
               onCheckedChange={(checked) => setAutoplayMode(checked ? "all" : "hover")}
             />
-            <label htmlFor="autoplay-toggle" className="text-sm text-gray-700 dark:text-white/70">
+            <label htmlFor="autoplay-toggle" className="text-sm font-medium text-gray-700 dark:text-gray-200">
               {autoplayMode === "all" ? "Autoplay All" : "Hover Autoplay"}
             </label>
           </div>

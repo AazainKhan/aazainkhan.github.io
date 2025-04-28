@@ -21,7 +21,7 @@ export default function Navbar({ navLinks }: NavbarProps) {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Sleek Interactive Logo */}
         <motion.div
-          className="relative cursor-pointer"
+          className="relative cursor-pointer logo-wrapper"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           whileHover={{ scale: 1.02 }}

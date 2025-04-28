@@ -54,10 +54,6 @@ export default function ContactSection({ forwardedRef }: { forwardedRef: React.R
                 </a>
               </div>
             </div>
-            <div className="pt-8">
-              <p className="text-gray-500 dark:text-white/60 mb-4">Location</p>
-              <p className="text-gray-700 dark:text-white/80 text-xl">Toronto, Ontario, Canada</p>
-            </div>
           </div>
           <div className="bg-gray-50 dark:bg-white/5 p-6 md:p-8 rounded-lg">
             <form className="space-y-6">

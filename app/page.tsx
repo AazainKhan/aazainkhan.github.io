@@ -12,6 +12,7 @@ import PlaySection from "@/components/sections/PlaySection"
 import AchievementsSection from "@/components/sections/AchievementsSection"
 import ContactSection from "@/components/sections/ContactSection"
 import Footer from "@/components/layout/Footer"
+import BackToTopButton from "@/components/BackToTopButton"
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false)
@@ -46,6 +47,7 @@ export default function Home() {
       <AchievementsSection />
       <ContactSection forwardedRef={contactRef} />
       <Footer />
+      <BackToTopButton />
     </div>
   )
 }

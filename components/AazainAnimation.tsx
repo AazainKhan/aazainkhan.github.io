@@ -79,15 +79,17 @@ export function AazainAnimation() {
   const ballRef = useRef<Ball>({ x: 0, y: 0, dx: 0, dy: 0, radius: 0 })
   const paddlesRef = useRef<Paddle[]>([])
   const scaleRef = useRef(1)
+  const ballSpeedRef = useRef<number | null>(null)
   const { resolvedTheme } = useTheme()
-
-  // Determine colors based on theme
-  const COLOR = resolvedTheme === "dark" ? DARK_COLOR : LIGHT_COLOR
-  const HIT_COLOR = resolvedTheme === "dark" ? DARK_HIT_COLOR : LIGHT_HIT_COLOR
-  const BACKGROUND_COLOR = resolvedTheme === "dark" ? DARK_BACKGROUND_COLOR : LIGHT_BACKGROUND_COLOR
-  const BALL_COLOR = resolvedTheme === "dark" ? DARK_BALL_COLOR : LIGHT_BALL_COLOR
-  const PADDLE_COLOR = resolvedTheme === "dark" ? DARK_PADDLE_COLOR : LIGHT_PADDLE_COLOR
-
+  // Create a ref to store the current theme
+  const themeRef = useRef(resolvedTheme)
+  
+  // Update themeRef when resolvedTheme changes
+  useEffect(() => {
+    themeRef.current = resolvedTheme
+  }, [resolvedTheme])
+  
+  // Setup game logic only once
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -106,7 +108,12 @@ export function AazainAnimation() {
       const scale = scaleRef.current
       const LARGE_PIXEL_SIZE = 8 * scale
       const BALL_SPEED = 6 * scale
-
+      
+      // Store initial ball speed if not already set
+      if (ballSpeedRef.current === null) {
+        ballSpeedRef.current = BALL_SPEED
+      }
+      
       pixelsRef.current = []
       const word = "AAZAIN"
 
@@ -121,7 +128,16 @@ export function AazainAnimation() {
       }
 
       const totalWidth = calculateWordWidth(word, LARGE_PIXEL_SIZE)
-      const scaleFactor = (canvas.width * 0.8) / totalWidth
+      
+      // Adjust scale factor based on screen width to make text smaller on larger screens
+      let scaleFactor = (canvas.width * 0.8) / totalWidth
+      
+      // Apply additional reduction for wider screens
+      const isDesktop = window.innerWidth > 1024
+      if (isDesktop) {
+        // Reduce the scale by 20% on desktop screens
+        scaleFactor *= 0.8
+      }
 
       const adjustedLargePixelSize = LARGE_PIXEL_SIZE * scaleFactor
 
@@ -149,11 +165,14 @@ export function AazainAnimation() {
       const ballStartX = canvas.width * 0.9
       const ballStartY = canvas.height * 0.1
 
+      // Use the stored ball speed to maintain consistent speed across theme changes
+      const currentSpeed = ballSpeedRef.current
+      
       ballRef.current = {
         x: ballStartX,
         y: ballStartY,
-        dx: -BALL_SPEED,
-        dy: BALL_SPEED,
+        dx: -currentSpeed,
+        dy: currentSpeed,
         radius: adjustedLargePixelSize / 2,
       }
 
@@ -271,20 +290,28 @@ export function AazainAnimation() {
     const drawGame = () => {
       if (!ctx) return
 
-      ctx.fillStyle = BACKGROUND_COLOR
+      // Get current theme colors using themeRef instead of captured resolvedTheme value
+      const currentTheme = themeRef.current
+      const currentBgColor = currentTheme === "dark" ? DARK_BACKGROUND_COLOR : LIGHT_BACKGROUND_COLOR
+      const currentColor = currentTheme === "dark" ? DARK_COLOR : LIGHT_COLOR
+      const currentHitColor = currentTheme === "dark" ? DARK_HIT_COLOR : LIGHT_HIT_COLOR
+      const currentBallColor = currentTheme === "dark" ? DARK_BALL_COLOR : LIGHT_BALL_COLOR
+      const currentPaddleColor = currentTheme === "dark" ? DARK_PADDLE_COLOR : LIGHT_PADDLE_COLOR
+
+      ctx.fillStyle = currentBgColor
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       pixelsRef.current.forEach((pixel) => {
-        ctx.fillStyle = pixel.hit ? HIT_COLOR : COLOR
+        ctx.fillStyle = pixel.hit ? currentHitColor : currentColor
         ctx.fillRect(pixel.x, pixel.y, pixel.size, pixel.size)
       })
 
-      ctx.fillStyle = BALL_COLOR
+      ctx.fillStyle = currentBallColor
       ctx.beginPath()
       ctx.arc(ballRef.current.x, ballRef.current.y, ballRef.current.radius, 0, Math.PI * 2)
       ctx.fill()
 
-      ctx.fillStyle = PADDLE_COLOR
+      ctx.fillStyle = currentPaddleColor
       paddlesRef.current.forEach((paddle) => {
         ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height)
       })
@@ -318,7 +345,7 @@ export function AazainAnimation() {
       window.removeEventListener("resize", resizeCanvas)
       observer.disconnect()
     }
-  }, [resolvedTheme])
+  }, []) // Remove resolvedTheme from dependencies
 
   return (
     <canvas

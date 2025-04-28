@@ -64,7 +64,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
       {/* Hamburger button - always visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-white/80 hover:text-white focus:outline-none z-50 relative"
+        className="p-2 text-gray-600 dark:text-white/80 hover:text-gray-900 dark:hover:text-white focus:outline-none z-50 relative"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -77,49 +77,51 @@ export function MobileMenu({ links }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/90 dark:bg-white/10 backdrop-blur-md pt-20"
+            className="fixed inset-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md pt-20"
           >
-            <div className="container mx-auto px-6">
-              <nav className="flex flex-col items-center space-y-8 py-8">
-                {links.map((link, index) => (
-                  <motion.button
-                    key={index}
+            <div className="relative z-50">
+              <div className="container mx-auto px-6">
+                <nav className="flex flex-col items-center space-y-8 py-8">
+                  {links.map((link, index) => (
+                    <motion.button
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + index * 0.1 }}
+                      onClick={() => {
+                        link.onClick()
+                        setIsOpen(false)
+                      }}
+                      className="text-gray-800 dark:text-white text-2xl font-light tracking-wide"
+                    >
+                      {link.name}
+                    </motion.button>
+                  ))}
+
+                  {/* Theme Toggle in Mobile Menu */}
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + index * 0.1 }}
-                    onClick={() => {
-                      link.onClick()
-                      setIsOpen(false)
-                    }}
-                    className="text-white dark:text-white text-2xl font-light tracking-wide"
+                    transition={{ delay: 0.5 }}
+                    className="mt-4"
                   >
-                    {link.name}
-                  </motion.button>
-                ))}
+                    <ThemeToggle />
+                  </motion.div>
 
-                {/* Theme Toggle in Mobile Menu */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-4"
-                >
-                  <ThemeToggle />
-                </motion.div>
-
-                {/* Social Icons */}
-                <div className="flex gap-6 mt-8 pt-8 border-t border-white/20 w-48">
-                  <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
-                    <Github className="w-6 h-6 text-white hover:text-white/90 transition-colors" />
-                  </Link>
-                  <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="w-6 h-6 text-white hover:text-white/90 transition-colors" />
-                  </Link>
-                  <Link href="mailto:aazainkhan@gmail.com">
-                    <Mail className="w-6 h-6 text-white hover:text-white/90 transition-colors" />
-                  </Link>
-                </div>
-              </nav>
+                  {/* Social Icons */}
+                  <div className="flex gap-6 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700/30 w-48">
+                    <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
+                      <Github className="w-6 h-6 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
+                    </Link>
+                    <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="w-6 h-6 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
+                    </Link>
+                    <Link href="mailto:aazainkhan@gmail.com">
+                      <Mail className="w-6 h-6 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
+                    </Link>
+                  </div>
+                </nav>
+              </div>
             </div>
           </motion.div>
         )}

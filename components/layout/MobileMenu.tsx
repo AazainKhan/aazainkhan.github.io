@@ -16,20 +16,6 @@ interface MobileMenuProps {
 export function MobileMenu({ links }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  
-  // Check for dark mode
-  useEffect(() => {
-    const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'))
-    }
-    
-    checkDarkMode()
-    const observer = new MutationObserver(checkDarkMode)
-    observer.observe(document.documentElement, { attributes: true })
-    
-    return () => observer.disconnect()
-  }, [])
 
   // Close menu when screen size changes to desktop
   useEffect(() => {
@@ -60,16 +46,19 @@ export function MobileMenu({ links }: MobileMenuProps) {
     }
   }, [isOpen])
 
-  // Prevent scrolling when menu is open
+  // Prevent scrolling when menu is open and add blur effect
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"
+      document.body.classList.add("menu-open")
     } else {
       document.body.style.overflow = ""
+      document.body.classList.remove("menu-open")
     }
 
     return () => {
       document.body.style.overflow = ""
+      document.body.classList.remove("menu-open")
     }
   }, [isOpen])
 
@@ -78,101 +67,84 @@ export function MobileMenu({ links }: MobileMenuProps) {
       {/* Hamburger button - always visible */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-gray-800 dark:text-white/80 hover:text-gray-900 dark:hover:text-white focus:outline-none fixed top-4 right-6 z-50"
+        className="p-2 text-gray-800 dark:text-white/80 hover:text-gray-900 dark:hover:text-white focus:outline-none z-50 relative"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
-      {/* Menu with solid background */}
-      {isOpen && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-            zIndex: 40,
-            paddingTop: '5rem',
-            opacity: 1
-          }}
-        >
-          <div style={{ 
-            maxWidth: '1200px', 
-            margin: '0 auto',
-            padding: '0 1.5rem'
-          }}>
-            <nav style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '2rem',
-              paddingTop: '2rem',
-              paddingBottom: '2rem'
-            }}>
-              {links.map((link, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    link.onClick()
-                    setIsOpen(false)
-                  }}
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 300,
-                    letterSpacing: '0.05em',
-                    color: isDarkMode ? '#ffffff' : '#1f2937',
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {link.name}
-                </button>
-              ))}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop overlay with stronger blur effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-30 bg-black/50 backdrop-blur-lg"
+              aria-hidden="true"
+              onClick={() => setIsOpen(false)}
+            />
 
-              {/* Theme Toggle in Mobile Menu */}
-              <div style={{ marginTop: '1rem' }}>
-                <ThemeToggle />
-              </div>
+            {/* Menu Content - directly connected to navbar */}
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-x-0 top-0 z-40 mobile-nav"
+            >
+              {/* Top gradient overlay to blend with navbar */}
+              <div className="h-16 bg-gradient-to-b from-white/80 to-white/95 dark:from-[#141414]/80 dark:to-[#141414]/95 backdrop-blur-sm"></div>
+              
+              {/* Menu content panel */}
+              <div className="w-full bg-white/95 dark:bg-[#141414]/95 backdrop-blur-md shadow-lg pt-16 pb-6">
+                <nav className="container mx-auto px-6 flex flex-col items-center space-y-7 py-8">
+                  {links.map((link, index) => (
+                    <motion.button
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.07 * index }}
+                      onClick={() => {
+                        link.onClick()
+                        setIsOpen(false)
+                      }}
+                      className="text-gray-800 dark:text-white/90 text-xl font-light tracking-wide hover:text-gray-600 dark:hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </motion.button>
+                  ))}
 
-              {/* Social Icons */}
-              <div style={{
-                display: 'flex',
-                gap: '1.5rem',
-                marginTop: '2rem',
-                paddingTop: '2rem',
-                borderTop: isDarkMode ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(229, 231, 235, 1)',
-                width: '12rem'
-              }}>
-                <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
-                  <Github style={{ 
-                    width: '1.5rem', 
-                    height: '1.5rem',
-                    color: isDarkMode ? '#ffffff' : '#4b5563'
-                  }} />
-                </Link>
-                <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
-                  <Linkedin style={{
-                    width: '1.5rem', 
-                    height: '1.5rem',
-                    color: isDarkMode ? '#ffffff' : '#4b5563'
-                  }} />
-                </Link>
-                <Link href="mailto:aazainkhan@gmail.com">
-                  <Mail style={{
-                    width: '1.5rem', 
-                    height: '1.5rem',
-                    color: isDarkMode ? '#ffffff' : '#4b5563'
-                  }} />
-                </Link>
+                  {/* Theme Toggle in Mobile Menu */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="mt-1"
+                  >
+                    <ThemeToggle />
+                  </motion.div>
+
+                  {/* Social Icons */}
+                  <div className="flex justify-center items-center gap-8 mt-6 pt-6 border-t border-gray-200 dark:border-white/10 w-full max-w-xs mx-auto">
+                    <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
+                      <Github className="w-5 h-5 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
+                    </Link>
+                    <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="w-5 h-5 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
+                    </Link>
+                    <Link href="mailto:aazainkhan@gmail.com">
+                      <Mail className="w-5 h-5 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
+                    </Link>
+                  </div>
+                </nav>
               </div>
-            </nav>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
