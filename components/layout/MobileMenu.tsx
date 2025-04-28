@@ -70,60 +70,60 @@ export function MobileMenu({ links }: MobileMenuProps) {
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
-      {isOpen && (
-        <div className="fixed inset-0 z-40">
-          {/* Background layer - this ensures we have a solid background */}
-          <div 
-            className="absolute inset-0 bg-gray-800 dark:bg-gray-100" 
-            style={{ 
-              backgroundColor: 'var(--menu-bg-color, #1f2937)', 
-              opacity: 1 
-            }}
-          />
-          
-          {/* Content layer */}
-          <div className="relative z-10 h-full pt-20 overflow-y-auto">
-            <div 
-              className="container mx-auto px-6"
-              style={{ backgroundColor: 'inherit' }}
-            >
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-white dark:bg-black backdrop-blur-md pt-20"
+          >
+            <div className="container mx-auto px-6">
               <nav className="flex flex-col items-center space-y-8 py-8">
                 {links.map((link, index) => (
-                  <button
+                  <motion.button
                     key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + index * 0.1 }}
                     onClick={() => {
                       link.onClick()
                       setIsOpen(false)
                     }}
-                    className="text-white dark:text-gray-900 text-2xl font-light tracking-wide hover:opacity-75 transition-opacity"
-                    style={{ color: 'var(--menu-text-color, white)' }}
+                    className="text-gray-800 dark:text-white text-2xl font-light tracking-wide"
                   >
                     {link.name}
-                  </button>
+                  </motion.button>
                 ))}
 
                 {/* Theme Toggle in Mobile Menu */}
-                <div className="mt-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="mt-4"
+                >
                   <ThemeToggle />
-                </div>
+                </motion.div>
 
                 {/* Social Icons */}
-                <div className="flex gap-6 mt-8 pt-8 border-t border-gray-600 dark:border-gray-300 w-48">
+                <div className="flex gap-6 mt-8 pt-8 border-t border-gray-200 dark:border-white/20 w-48">
                   <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
-                    <Github className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
+                    <Github className="w-6 h-6 text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
                   </Link>
                   <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
+                    <Linkedin className="w-6 h-6 text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
                   </Link>
                   <Link href="mailto:aazainkhan@gmail.com">
-                    <Mail className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
+                    <Mail className="w-6 h-6 text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
                   </Link>
                 </div>
               </nav>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
