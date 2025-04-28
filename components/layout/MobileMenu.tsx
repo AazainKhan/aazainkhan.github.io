@@ -70,71 +70,60 @@ export function MobileMenu({ links }: MobileMenuProps) {
         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop blur */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-30 backdrop-blur-md"
-            />
-            
-            {/* Menu content with inverted colors */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 pt-20 bg-gray-800 dark:bg-gray-100"
+      {isOpen && (
+        <div className="fixed inset-0 z-40">
+          {/* Background layer - this ensures we have a solid background */}
+          <div 
+            className="absolute inset-0 bg-gray-800 dark:bg-gray-100" 
+            style={{ 
+              backgroundColor: 'var(--menu-bg-color, #1f2937)', 
+              opacity: 1 
+            }}
+          />
+          
+          {/* Content layer */}
+          <div className="relative z-10 h-full pt-20 overflow-y-auto">
+            <div 
+              className="container mx-auto px-6"
+              style={{ backgroundColor: 'inherit' }}
             >
-              <div className="container mx-auto px-6">
-                <nav className="flex flex-col items-center space-y-8 py-8">
-                  {links.map((link, index) => (
-                    <motion.button
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + index * 0.1 }}
-                      onClick={() => {
-                        link.onClick()
-                        setIsOpen(false)
-                      }}
-                      className="text-white dark:text-gray-900 text-2xl font-light tracking-wide hover:opacity-75 transition-opacity"
-                    >
-                      {link.name}
-                    </motion.button>
-                  ))}
-
-                  {/* Theme Toggle in Mobile Menu */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="mt-4"
+              <nav className="flex flex-col items-center space-y-8 py-8">
+                {links.map((link, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      link.onClick()
+                      setIsOpen(false)
+                    }}
+                    className="text-white dark:text-gray-900 text-2xl font-light tracking-wide hover:opacity-75 transition-opacity"
+                    style={{ color: 'var(--menu-text-color, white)' }}
                   >
-                    <ThemeToggle />
-                  </motion.div>
+                    {link.name}
+                  </button>
+                ))}
 
-                  {/* Social Icons */}
-                  <div className="flex gap-6 mt-8 pt-8 border-t border-gray-600 dark:border-gray-300 w-48">
-                    <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
-                      <Github className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
-                    </Link>
-                    <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
-                      <Linkedin className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
-                    </Link>
-                    <Link href="mailto:aazainkhan@gmail.com">
-                      <Mail className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
-                    </Link>
-                  </div>
-                </nav>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+                {/* Theme Toggle in Mobile Menu */}
+                <div className="mt-4">
+                  <ThemeToggle />
+                </div>
+
+                {/* Social Icons */}
+                <div className="flex gap-6 mt-8 pt-8 border-t border-gray-600 dark:border-gray-300 w-48">
+                  <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
+                    <Github className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
+                  </Link>
+                  <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
+                  </Link>
+                  <Link href="mailto:aazainkhan@gmail.com">
+                    <Mail className="w-6 h-6 text-white dark:text-gray-800 hover:opacity-75 transition-opacity" />
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
