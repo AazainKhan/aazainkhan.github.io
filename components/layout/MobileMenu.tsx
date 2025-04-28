@@ -77,9 +77,18 @@ export function MobileMenu({ links }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white/95 dark:bg-black/95 backdrop-blur-md pt-20"
+            className="fixed inset-0 z-40 bg-white dark:bg-black pt-20"
+            style={{
+              background: "white",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            }}
           >
-            <div className="container mx-auto px-6">
+            <div 
+              className="container mx-auto px-6"
+              style={{
+                background: "inherit",
+              }}
+            >
               <nav className="flex flex-col items-center space-y-8 py-8">
                 {links.map((link, index) => (
                   <motion.button
@@ -91,7 +100,10 @@ export function MobileMenu({ links }: MobileMenuProps) {
                       link.onClick()
                       setIsOpen(false)
                     }}
-                    className="text-gray-800 dark:text-white text-2xl font-light tracking-wide"
+                    className="text-gray-900 dark:text-white text-2xl font-light tracking-wide"
+                    style={{
+                      color: "black",
+                    }}
                   >
                     {link.name}
                   </motion.button>
@@ -108,7 +120,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                 </motion.div>
 
                 {/* Social Icons */}
-                <div className="flex gap-6 mt-8 pt-8 border-t border-gray-200 dark:border-white/20 w-48">
+                <div className="flex gap-6 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 w-48">
                   <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
                     <Github className="w-6 h-6 text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
                   </Link>
