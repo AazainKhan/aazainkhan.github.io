@@ -77,7 +77,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-black backdrop-blur-md pt-20"
+            className="fixed inset-0 z-40 bg-white dark:bg-black pt-20"
           >
             <div className="container mx-auto px-6">
               <nav className="flex flex-col items-center space-y-8 py-8">
