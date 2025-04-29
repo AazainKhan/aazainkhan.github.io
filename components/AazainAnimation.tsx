@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTheme } from "next-themes"
 
 const LIGHT_COLOR = "#333333"
-const LIGHT_HIT_COLOR = "#666666"
+const LIGHT_HIT_COLOR = "green"
 const LIGHT_BACKGROUND_COLOR = "#FFFFFF"
 const LIGHT_BALL_COLOR = "#000000"
 const LIGHT_PADDLE_COLOR = "#1a1a1a"
@@ -101,6 +101,14 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
   const mousePositionRef = useRef<number | null>(null)
   const isMouseDownRef = useRef(false)
   
+  // Add state for client-side mounting
+  const [isMounted, setIsMounted] = useState(false)
+  
+  // Initial mounting effect to prevent hydration mismatch
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  
   // Function to reinitialize the game - declared outside effects to be available in all effects
   const reinitializeGame = () => {
     const canvas = canvasRef.current
@@ -132,6 +140,8 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
   
   // Setup game logic only once
   useEffect(() => {
+    if (!isMounted) return;
+    
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -291,10 +301,16 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
       // Increase base pixel size, especially for mobile
       const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window)
       const LARGE_PIXEL_SIZE = isMobile ? 12 * scale : 8 * scale
-      const BALL_SPEED = 6 * scale
+      
+      // Significantly increase ball speed for game mode on mobile
+      const BASE_BALL_SPEED = 6 * scale
+      const BALL_SPEED = isGameModeRef.current && isMobile ? BASE_BALL_SPEED * 2.5 : BASE_BALL_SPEED
       
       // Store initial ball speed if not already set
       if (ballSpeedRef.current === null) {
+        ballSpeedRef.current = BALL_SPEED
+      } else if (isGameModeRef.current && isMobile) {
+        // Ensure the ball speed is updated for mobile game mode even if it was previously set
         ballSpeedRef.current = BALL_SPEED
       }
       
@@ -377,7 +393,7 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
       }
 
       // Make paddles thicker
-      const paddleWidth = LARGE_PIXEL_SIZE * 0.3 // Even thicker paddles
+      const paddleWidth = LARGE_PIXEL_SIZE * 0.8 // Even thicker paddles
       const paddleLength = isMobile ? 15 * LARGE_PIXEL_SIZE : 20 * LARGE_PIXEL_SIZE // Significantly longer paddles
 
       // Get the nav height - this will be 0 initially but will be updated on first render
@@ -759,7 +775,7 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
         window.clearTimeout(instructionsFadeTimerRef.current)
       }
     }
-  }, [])
+  }, [isMounted]) // Only run once isMounted is true
 
   // Function to handle the gradual fading of instructions
   const startInstructionsFade = () => {
@@ -776,6 +792,16 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
     
     // Store the interval ID to clear it if needed
     return fadeInterval
+  }
+
+  // If we're not mounted yet, render just the canvas placeholder
+  if (!isMounted) {
+    return (
+      <div 
+        className="absolute top-0 left-0 w-full h-full"
+        aria-label="Loading animation"
+      />
+    )
   }
 
   return (

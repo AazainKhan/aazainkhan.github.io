@@ -7,11 +7,12 @@ export const metadata = {
   title: "Aazain Khan",
   description: "Aaazain Khan's personal website",
   metadataBase: new URL("https://aazainkhan.github.io"),
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "#000" },

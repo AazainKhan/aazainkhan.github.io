@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Play, X } from "lucide-react"
 import { AazainAnimation } from "../AazainAnimation"
 import ScrollDownAnimation from "../ScrollDownAnimation"
@@ -12,6 +12,23 @@ interface HeroSectionProps {
 
 export default function HeroSection({ targetRef }: HeroSectionProps) {
   const [isGameMode, setIsGameMode] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Ensure hydration completes before rendering interactive elements
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // If not mounted yet, render a minimal version to avoid hydration mismatch
+  if (!isMounted) {
+    return (
+      <section className="min-h-screen flex flex-col justify-center items-center pt-16 pb-10 px-4 sm:px-8 relative">
+        <div className="absolute inset-0 z-0">
+          {/* Animation placeholder */}
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="min-h-screen flex flex-col justify-center items-center pt-16 pb-10 px-4 sm:px-8 relative">
