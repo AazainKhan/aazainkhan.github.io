@@ -13,7 +13,7 @@ export default function AchievementsSection() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div>
               <h3
                 className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/80`}
               >
@@ -36,7 +36,7 @@ export default function AchievementsSection() {
           </div>
 
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div>
               <h3
                 className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/80`}
               >

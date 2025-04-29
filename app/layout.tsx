@@ -4,9 +4,18 @@ import type React from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata = {
-  title: "Dynamic Frame Layout",
-  description: "A dynamic frame layout with custom fonts",
-  generator: "v0.dev",
+  title: "Aazain Khan",
+  description: "Aaazain Khan's personal website",
+  metadataBase: new URL("https://aazainkhan.github.io"),
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "#000" },
+  ],
 }
 
 export default function RootLayout({
@@ -15,8 +24,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${ppEditorialNewUltralightItalic.variable} ${inter.variable}`} suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+    <html 
+      lang="en" 
+      className={`${ppEditorialNewUltralightItalic.variable} ${inter.variable}`} 
+      suppressHydrationWarning
+    >
+      <head>
+        <link rel="preconnect" href="https://static.cdn-luma.com" />
+      </head>
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>

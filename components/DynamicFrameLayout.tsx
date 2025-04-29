@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useCallback, useEffect, useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { FrameComponent } from "./FrameComponent"
 import { Slider } from "@/components/ui/slider"
@@ -145,62 +145,73 @@ const initialFrames: Frame[] = [
 ]
 
 export default function DynamicFrameLayout() {
-  const [frames, setFrames] = useState<Frame[]>(initialFrames)
+  const [frames, setFrames] = useState<Frame[]>([])
   const [hovered, setHovered] = useState<{ row: number; col: number } | null>(null)
   const [hoverSize, setHoverSize] = useState(6)
   const [gapSize, setGapSize] = useState(4)
   const [showControls, setShowControls] = useState(false)
   const [cleanInterface, setCleanInterface] = useState(true)
-  const [showFrames, setShowFrames] = useState(true) // Update: showFrames starts as false
+  const [showFrames, setShowFrames] = useState(true)
   const [autoplayMode, setAutoplayMode] = useState<"all" | "hover">("all")
+  const [isInitialized, setIsInitialized] = useState(false)
 
-  const getRowSizes = () => {
+  // Load frames immediately but in batches
+  useEffect(() => {
+    if (!isInitialized) {
+      // Load all frames immediately
+      setFrames(initialFrames);
+      setIsInitialized(true);
+    }
+  }, [isInitialized]);
+
+  // Memoize row and column sizing functions
+  const getRowSizes = useCallback(() => {
     if (hovered === null) {
       return "4fr 4fr 4fr"
     }
     const { row } = hovered
     const nonHoveredSize = (12 - hoverSize) / 2
     return [0, 1, 2].map((r) => (r === row ? `${hoverSize}fr` : `${nonHoveredSize}fr`)).join(" ")
-  }
+  }, [hovered, hoverSize])
 
-  const getColSizes = () => {
+  const getColSizes = useCallback(() => {
     if (hovered === null) {
       return "4fr 4fr 4fr"
     }
     const { col } = hovered
     const nonHoveredSize = (12 - hoverSize) / 2
     return [0, 1, 2].map((c) => (c === col ? `${hoverSize}fr` : `${nonHoveredSize}fr`)).join(" ")
-  }
+  }, [hovered, hoverSize])
 
-  const getTransformOrigin = (x: number, y: number) => {
+  const getTransformOrigin = useCallback((x: number, y: number) => {
     const vertical = y === 0 ? "top" : y === 4 ? "center" : "bottom"
     const horizontal = x === 0 ? "left" : x === 4 ? "center" : "right"
     return `${vertical} ${horizontal}`
-  }
+  }, [])
 
-  const updateFrameProperty = (id: number, property: keyof Frame, value: number) => {
-    setFrames(frames.map((frame) => (frame.id === id ? { ...frame, [property]: value } : frame)))
-  }
+  const updateFrameProperty = useCallback((id: number, property: keyof Frame, value: number) => {
+    setFrames(frames => frames.map((frame) => (frame.id === id ? { ...frame, [property]: value } : frame)))
+  }, [])
 
-  const toggleControls = () => {
-    setShowControls(!showControls)
-  }
+  const toggleControls = useCallback(() => {
+    setShowControls(prev => !prev)
+  }, [])
 
-  const toggleCleanInterface = () => {
-    setCleanInterface(!cleanInterface)
-    if (!cleanInterface) {
+  const toggleCleanInterface = useCallback(() => {
+    setCleanInterface(prev => !prev)
+    if (cleanInterface) {
       setShowControls(false)
     }
-  }
+  }, [cleanInterface])
 
-  const updateCodebase = () => {
-    console.log("Updating codebase with current values:")
-    console.log("Hover Size:", hoverSize)
-    console.log("Gap Size:", gapSize)
-    console.log("Frames:", frames)
-    // Here you would typically make an API call to update the codebase
-    // For now, we'll just log the values
-  }
+  // Grid styles
+  const gridStyle = useMemo(() => ({
+    display: "grid",
+    gridTemplateRows: getRowSizes(),
+    gridTemplateColumns: getColSizes(),
+    gap: `${gapSize}px`,
+    transition: "grid-template-rows 0.4s ease, grid-template-columns 0.4s ease",
+  }), [getRowSizes, getColSizes, gapSize])
 
   return (
     <div className="space-y-4 w-full h-full">
@@ -229,7 +240,6 @@ export default function DynamicFrameLayout() {
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Dynamic Frame Layout</h2>
           <div className="space-x-2">
             <Button onClick={toggleControls}>{showControls ? "Hide Controls" : "Show Controls"}</Button>
-            <Button onClick={updateCodebase}>Update Codebase</Button>
             <Button onClick={toggleCleanInterface}>{cleanInterface ? "Show UI" : "Hide UI"}</Button>
           </div>
         </div>
@@ -266,18 +276,13 @@ export default function DynamicFrameLayout() {
       )}
       <div
         className="relative w-full h-full"
-        style={{
-          display: "grid",
-          gridTemplateRows: getRowSizes(),
-          gridTemplateColumns: getColSizes(),
-          gap: `${gapSize}px`,
-          transition: "grid-template-rows 0.4s ease, grid-template-columns 0.4s ease",
-        }}
+        style={gridStyle}
       >
         {frames.map((frame) => {
           const row = Math.floor(frame.defaultPos.y / 4)
           const col = Math.floor(frame.defaultPos.x / 4)
           const transformOrigin = getTransformOrigin(frame.defaultPos.x, frame.defaultPos.y)
+          const isFrameHovered = hovered?.row === row && hovered?.col === col;
 
           return (
             <motion.div
@@ -308,10 +313,7 @@ export default function DynamicFrameLayout() {
                 label={`Frame ${frame.id}`}
                 showFrame={showFrames}
                 autoplayMode={autoplayMode}
-                isHovered={
-                  hovered?.row === Math.floor(frame.defaultPos.y / 4) &&
-                  hovered?.col === Math.floor(frame.defaultPos.x / 4)
-                }
+                isHovered={isFrameHovered}
               />
             </motion.div>
           )

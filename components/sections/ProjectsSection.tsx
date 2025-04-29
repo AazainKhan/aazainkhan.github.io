@@ -17,7 +17,7 @@ export default function ProjectSection({ forwardedRef }: { forwardedRef: React.R
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           <div className="bg-gray-50 dark:bg-white/5 p-6 md:p-8 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-            <div className="flex justify-between items-start mb-4">
+            <div className="mb-4">
               <h3
                 className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/90`}
               >
@@ -73,7 +73,7 @@ export default function ProjectSection({ forwardedRef }: { forwardedRef: React.R
           </div>
 
           <div className="bg-gray-50 dark:bg-white/5 p-6 md:p-8 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-            <div className="flex justify-between items-start mb-4">
+            <div className="mb-4">
               <h3
                 className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/90`}
               >
@@ -128,7 +128,7 @@ export default function ProjectSection({ forwardedRef }: { forwardedRef: React.R
           </div>
 
           <div className="bg-gray-50 dark:bg-white/5 p-6 md:p-8 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-            <div className="flex justify-between items-start mb-4">
+            <div className="mb-4">
               <h3
                 className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/90`}
               >
@@ -180,7 +180,7 @@ export default function ProjectSection({ forwardedRef }: { forwardedRef: React.R
           </div>
 
           <div className="bg-gray-50 dark:bg-white/5 p-6 md:p-8 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-            <div className="flex justify-between items-start mb-4">
+            <div className="mb-4">
               <h3
                 className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/90`}
               >

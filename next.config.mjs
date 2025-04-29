@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
+import createBundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = process.env.ANALYZE === 'true'
+  ? createBundleAnalyzer({ enabled: true })
+  : (config) => config;
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -11,7 +17,15 @@ const nextConfig = {
   },
   output: 'export',
   basePath: '',
-  assetPrefix: '/',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/' : '',
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  experimental: {
+    optimizeCss: true,
+  },
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

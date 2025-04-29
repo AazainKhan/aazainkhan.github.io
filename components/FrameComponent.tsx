@@ -1,6 +1,6 @@
 "use client"
 import { Slider } from "@/components/ui/slider"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface FrameComponentProps {
   video: string
@@ -44,21 +44,56 @@ export function FrameComponent({
   isHovered,
 }: FrameComponentProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [isInView, setIsInView] = useState(false)
 
+  // Intersection Observer for lazy loading
   useEffect(() => {
-    if (autoplayMode === "all") {
-      videoRef.current?.play()
-    } else if (autoplayMode === "hover") {
-      if (isHovered) {
-        videoRef.current?.play()
-      } else {
-        videoRef.current?.pause()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        setIsInView(entry.isIntersecting)
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current)
       }
     }
-  }, [isHovered, autoplayMode])
+  }, [])
+
+  // Handle video playback based on visibility and autoplay mode
+  useEffect(() => {
+    if (!videoRef.current) return
+
+    if (!isInView) {
+      videoRef.current.pause()
+      return
+    }
+
+    if (autoplayMode === "all" || (autoplayMode === "hover" && isHovered)) {
+      videoRef.current.play().catch(() => {
+        // Retry play on user interaction
+        const playOnInteraction = () => {
+          videoRef.current?.play().catch(() => {})
+          document.removeEventListener('click', playOnInteraction)
+        }
+        document.addEventListener('click', playOnInteraction, { once: true })
+      })
+    } else {
+      videoRef.current.pause()
+    }
+  }, [isInView, isHovered, autoplayMode])
 
   return (
     <div
+      ref={containerRef}
       className={`relative ${className}`}
       style={{
         width,
@@ -90,22 +125,13 @@ export function FrameComponent({
           >
             <video
               className="w-full h-full object-cover"
-              src={video}
+              src={isInView ? video : undefined}
+              data-src={video}
               loop
               muted
               playsInline
-              autoPlay={autoplayMode === "all" || (autoplayMode === "hover" && isHovered)}
+              autoPlay={autoplayMode === "all"}
               ref={videoRef}
-              onMouseEnter={(e) => {
-                if (autoplayMode === "hover") {
-                  e.currentTarget.play()
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (autoplayMode === "hover") {
-                  e.currentTarget.pause()
-                }
-              }}
             />
           </div>
         </div>
@@ -116,19 +142,19 @@ export function FrameComponent({
             {/* Corners */}
             <div
               className="absolute top-0 left-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})` }}
+              style={{ backgroundImage: `url(${corner})`, backgroundSize: 'contain' }}
             />
             <div
               className="absolute top-0 right-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, transform: "scaleX(-1)" }}
+              style={{ backgroundImage: `url(${corner})`, transform: "scaleX(-1)", backgroundSize: 'contain' }}
             />
             <div
               className="absolute bottom-0 left-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, transform: "scaleY(-1)" }}
+              style={{ backgroundImage: `url(${corner})`, transform: "scaleY(-1)", backgroundSize: 'contain' }}
             />
             <div
               className="absolute bottom-0 right-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, transform: "scale(-1, -1)" }}
+              style={{ backgroundImage: `url(${corner})`, transform: "scale(-1, -1)", backgroundSize: 'contain' }}
             />
 
             {/* Edges */}

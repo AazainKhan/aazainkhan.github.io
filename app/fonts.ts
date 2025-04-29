@@ -16,6 +16,8 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  preload: true,
+  fallback: ["system-ui", "sans-serif"],
 })
 
 export { ppEditorialNewUltralightItalic, inter }
