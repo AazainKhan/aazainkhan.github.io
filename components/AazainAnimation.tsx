@@ -404,7 +404,8 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
         const bottomPaddleWidth = paddleLength * 1 // Reduced from 3 to make it less wide
         
         // Adjust paddle thickness based on device type
-        const paddleThickness = isMobile ? paddleWidth * 16 : paddleWidth * 5 // Thicker on mobile
+        // Make paddle thinner to avoid square appearance but keep it wide
+        const paddleThickness = isMobile ? paddleWidth * 4 : paddleWidth * 2 // Thinner than before
         
         paddlesRef.current = [
           {
