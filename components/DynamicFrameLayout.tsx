@@ -154,6 +154,20 @@ export default function DynamicFrameLayout() {
   const [showFrames, setShowFrames] = useState(true)
   const [autoplayMode, setAutoplayMode] = useState<"all" | "hover">("all")
   const [isInitialized, setIsInitialized] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Set mounted state
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Detect mobile device and set showFrames accordingly
+  useEffect(() => {
+    if (isMounted) {
+      const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window)
+      setShowFrames(!isMobile) // Disable frames on mobile, enable on desktop
+    }
+  }, [isMounted])
 
   // Load frames immediately but in batches
   useEffect(() => {
