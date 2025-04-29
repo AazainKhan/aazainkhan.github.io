@@ -7,7 +7,7 @@ const LIGHT_COLOR = "#333333"
 const LIGHT_HIT_COLOR = "#666666"
 const LIGHT_BACKGROUND_COLOR = "#FFFFFF"
 const LIGHT_BALL_COLOR = "#000000"
-const LIGHT_PADDLE_COLOR = "#333333"
+const LIGHT_PADDLE_COLOR = "#1a1a1a"
 
 const DARK_COLOR = "#FFFFFF"
 const DARK_HIT_COLOR = "#333333"
@@ -83,6 +83,8 @@ export function AazainAnimation() {
   const { resolvedTheme } = useTheme()
   // Create a ref to store the current theme
   const themeRef = useRef(resolvedTheme)
+  // Add a ref to track if the game has been initialized
+  const gameInitializedRef = useRef(false)
   
   // Update themeRef when resolvedTheme changes
   useEffect(() => {
@@ -98,10 +100,74 @@ export function AazainAnimation() {
     if (!ctx) return
 
     const resizeCanvas = () => {
+      const previousWidth = canvas.width
+      const previousHeight = canvas.height
+      
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      scaleRef.current = Math.min(canvas.width / 1000, canvas.height / 1000)
-      initializeGame()
+      
+      // Calculate new scale
+      const newScale = Math.min(canvas.width / 1000, canvas.height / 1000)
+      const scaleRatio = newScale / scaleRef.current
+      
+      // Update the scale
+      scaleRef.current = newScale
+      
+      // Only do a full init if game hasn't been initialized yet
+      if (!gameInitializedRef.current) {
+        initializeGame()
+        gameInitializedRef.current = true
+      } else {
+        // Adjust existing game elements to the new dimensions instead of resetting
+        adjustGameToNewDimensions(previousWidth, previousHeight, scaleRatio)
+      }
+    }
+    
+    // Function to adjust game elements to new screen dimensions
+    const adjustGameToNewDimensions = (prevWidth: number, prevHeight: number, scaleRatio: number) => {
+      const widthRatio = canvas.width / prevWidth
+      const heightRatio = canvas.height / prevHeight
+      
+      // Adjust ball position and size
+      const ball = ballRef.current
+      ball.x *= widthRatio
+      ball.y *= heightRatio
+      ball.radius *= scaleRatio
+      
+      // Adjust ball speed to maintain relative speed
+      if (ballSpeedRef.current !== null) {
+        ballSpeedRef.current *= scaleRatio
+        ball.dx = ball.dx > 0 ? ballSpeedRef.current : -ballSpeedRef.current
+        ball.dy = ball.dy > 0 ? ballSpeedRef.current : -ballSpeedRef.current
+      }
+      
+      // Adjust pixels
+      pixelsRef.current.forEach(pixel => {
+        pixel.x *= widthRatio
+        pixel.y *= heightRatio
+        pixel.size *= scaleRatio
+      })
+      
+      // Adjust paddles
+      paddlesRef.current.forEach(paddle => {
+        if (paddle.isVertical) {
+          paddle.x *= widthRatio
+          paddle.y *= heightRatio
+          paddle.width *= scaleRatio
+          paddle.height *= scaleRatio
+        } else {
+          paddle.x *= widthRatio
+          paddle.y *= heightRatio
+          paddle.width *= scaleRatio
+          paddle.height *= scaleRatio
+        }
+      })
+      
+      // Update top paddle position to match nav
+      const navHeight = document.querySelector("nav")?.offsetHeight || 64
+      if (paddlesRef.current[2]) {
+        paddlesRef.current[2].y = navHeight
+      }
     }
 
     const initializeGame = () => {

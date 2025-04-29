@@ -21,16 +21,12 @@ export default function AchievementsSection() {
               </h3>
               <span className="text-gray-500 dark:text-white/40 text-sm">May 2024</span>
             </div>
-            <h4 className="text-gray-700 dark:text-white/70 text-lg">University of Guelph</h4>
             <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-2">
               <li>
-                Built HackBook, a Hackathon Management Platform using TypeScript, MongoDB, Next.js, and TailwindCSS to
-                address common pain points like low workshop attendance, lost meal tickets, and lack of a centralized
-                information hub.
+                Led DevOps stream—built CI/CD pipeline, Terraform + Azure Web App deployment, and monitoring dashboards in Application Insights.
               </li>
               <li>
-                Tackled obstacles like connecting frontend to backend, deploying the application, and managing a CI/CD
-                pipeline.
+                Tackled obstacles like connecting frontend to backend, deploying the application, and managing a CI/CD pipeline.
               </li>
               <li>
                 Leveraged diverse skill sets to collaborate effectively on a large project. Gained proficiency in
@@ -48,15 +44,9 @@ export default function AchievementsSection() {
               </h3>
               <span className="text-gray-500 dark:text-white/40 text-sm">May 2023</span>
             </div>
-            <h4 className="text-gray-700 dark:text-white/70 text-lg">Seneca College</h4>
             <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-2">
               <li>
-                Developed in a team of 3, a teletherapy web platform mock-up called 'MindMatters', aimed to improve
-                mental healthcare access and affordability in urban Ontario.
-              </li>
-              <li>
-                Devised the MindMatters front-end using the Gatsby framework on Quarkly.io, prioritizing UX and
-                accessibility.
+                Developed a city-wide IoT proof-of-concept; published technical white paper highlighting Azure IoT Hub security model and data pipeline.
               </li>
               <li>
                 Effectively presented goals and solutions to stakeholders, judges, and members from The Centre for

@@ -11,7 +11,7 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
         <h2
           className={`${ppEditorialNewUltralightItalic.className} text-4xl md:text-6xl font-light italic text-gray-800 dark:text-white/80 tracking-tighter mb-16`}
         >
-          Work Experience
+          Work
         </h2>
 
         {/* Timeline layout for work experience */}
@@ -38,6 +38,14 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                   <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">
                     Ministry of Public and Business Service Delivery
                   </h4>
+                  
+                  {/* Date displayed in mobile view right after company name */}
+                  <div className="block md:hidden mb-4">
+                    <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
+                      Aug 2024 – Dec 2024
+                    </span>
+                  </div>
+                  
                   <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-3">
                     <li>
                       Single-handedly architected and built an end-to-end analytics portal using React, TypeScript, and
@@ -54,7 +62,7 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                     </li>
                   </ul>
                 </div>
-                <div className="md:w-48 shrink-0">
+                <div className="hidden md:block md:w-48 shrink-0">
                   <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
                     Aug 2024 – Dec 2024
                   </span>
@@ -80,6 +88,14 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                   <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">
                     Ministry of Public and Business Service Delivery
                   </h4>
+                  
+                  {/* Date displayed in mobile view right after company name */}
+                  <div className="block md:hidden mb-4">
+                    <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
+                      May 2024 – Aug 2024
+                    </span>
+                  </div>
+                  
                   <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-3">
                     <li>
                       Transformed legacy system migration by taking initiative beyond role expectations, identifying
@@ -95,7 +111,7 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                     </li>
                   </ul>
                 </div>
-                <div className="md:w-48 shrink-0">
+                <div className="hidden md:block md:w-48 shrink-0">
                   <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
                     May 2024 – Aug 2024
                   </span>
@@ -119,6 +135,14 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                     Wireless Consultant
                   </h3>
                   <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">Staples</h4>
+                  
+                  {/* Date displayed in mobile view right after company name */}
+                  <div className="block md:hidden mb-4">
+                    <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
+                      Jun 2023 – Feb 2024
+                    </span>
+                  </div>
+                  
                   <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-3">
                     <li>
                       Leveraged expertise in wireless and wire-line solutions for consumer and small business needs,
@@ -131,7 +155,7 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                     </li>
                   </ul>
                 </div>
-                <div className="md:w-48 shrink-0">
+                <div className="hidden md:block md:w-48 shrink-0">
                   <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
                     Jun 2023 – Feb 2024
                   </span>

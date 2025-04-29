@@ -1,6 +1,5 @@
 "use client"
 import Link from "next/link"
-import { Github, Linkedin, Mail } from "lucide-react"
 import MobileMenu from "./MobileMenu"
 import ThemeToggle from "../ThemeToggle"
 import { motion } from "framer-motion"
@@ -78,18 +77,9 @@ export default function Navbar({ navLinks }: NavbarProps) {
           ))}
         </div>
 
-        {/* Desktop Theme Toggle and Social Icons */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Desktop Theme Toggle */}
+        <div className="hidden md:flex items-center">
           <ThemeToggle />
-          <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
-            <Github className="w-5 h-5 text-gray-600 dark:text-white/60 hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
-          </Link>
-          <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
-            <Linkedin className="w-5 h-5 text-gray-600 dark:text-white/60 hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
-          </Link>
-          <Link href="mailto:aazainkhan@gmail.com">
-            <Mail className="w-5 h-5 text-gray-600 dark:text-white/60 hover:text-gray-900 dark:hover:text-white/90 transition-colors" />
-          </Link>
         </div>
 
         {/* Mobile Menu */}

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import ThemeToggle from "../ThemeToggle"
@@ -116,7 +116,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                       {link.name}
                     </motion.button>
                   ))}
-
+                  
                   {/* Theme Toggle in Mobile Menu */}
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -126,19 +126,6 @@ export function MobileMenu({ links }: MobileMenuProps) {
                   >
                     <ThemeToggle />
                   </motion.div>
-
-                  {/* Social Icons */}
-                  <div className="flex justify-center items-center gap-8 mt-6 pt-6 border-t border-gray-200 dark:border-white/10 w-full max-w-xs mx-auto">
-                    <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
-                      <Github className="w-5 h-5 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
-                    </Link>
-                    <Link href="https://linkedin.com/in/aazainkhan" target="_blank" rel="noopener noreferrer">
-                      <Linkedin className="w-5 h-5 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
-                    </Link>
-                    <Link href="mailto:aazainkhan@gmail.com">
-                      <Mail className="w-5 h-5 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
-                    </Link>
-                  </div>
                 </nav>
               </div>
             </motion.div>

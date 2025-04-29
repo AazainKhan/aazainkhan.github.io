@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import AazainAnimation from "../AazainAnimation"
+import { AazainAnimation } from "../AazainAnimation"
 import ScrollDownAnimation from "../ScrollDownAnimation"
 
 interface HeroSectionProps {
@@ -16,15 +16,19 @@ export default function HeroSection({ targetRef }: HeroSectionProps) {
         <AazainAnimation />
       </div>
 
-      {/* Description text overlaid on animation - positioned lower */}
-      <div className="absolute z-10 text-center w-full" style={{ bottom: '25%' }}>
-        <p className="text-gray-600 dark:text-white/60 font-light tracking-wide text-lg md:text-xl">
-          Full-stack developer. AI/ML. Friends/family tech guy.
+      {/* Description text overlaid on animation - positioned lower to avoid overlap with pixels */}
+      <div className="absolute z-10 text-center w-full" style={{ 
+        bottom: 'min(30%, calc(30% + 20px))',  
+        paddingTop: '2rem' // Extra padding to ensure separation from AAZAIN animation
+      }}>
+        <p className="text-gray-600 dark:text-white/60 font-light tracking-wide text-lg md:text-xl 
+           bg-white/30 dark:bg-black/30 backdrop-blur-sm py-2 px-4 rounded-lg mx-auto inline-block">
+          Full-stack developer. AI/ML. Friendly neighborhood tech guy.
         </p>
       </div>
 
-      {/* Scroll Down Animation - Centered at bottom */}
-      <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+      {/* Scroll Down Animation - Positioned even higher from bottom */}
+      <div className="absolute bottom-32 md:bottom-28 left-0 right-0 flex justify-center">
         <ScrollDownAnimation targetRef={targetRef} />
       </div>
     </section>
