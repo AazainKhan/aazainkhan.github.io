@@ -2,7 +2,6 @@
 
 Frankenstein-ed my website together. It looks nice. Functions well. Tested. I like it.
 
-
 ## Built With
 
 - [Next.js](https://nextjs.org/)
