@@ -12,6 +12,7 @@ const CELL_SIZE = 60 // pixels per grid cell
 
 interface Frame {
   id: number
+  tag: string // Tag for categorization
   video: string
   defaultPos: { x: number; y: number; w: number; h: number }
   corner: string
@@ -28,6 +29,7 @@ interface Frame {
 const initialFrames: Frame[] = [
   {
     id: 1,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/981e483f71aa764b/Company%20Thing%20Exported.mp4",
     defaultPos: { x: 0, y: 0, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/bcf576df9c38b05f/1_corner_update.png",
@@ -41,6 +43,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 2,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/WebGL%20Exported%20(1).mp4",
     defaultPos: { x: 4, y: 0, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/bcf576df9c38b05f/2_corner_update.png",
@@ -54,6 +57,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 3,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Jitter%20Exported%20Poster.mp4",
     defaultPos: { x: 8, y: 0, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/3d36d1e0dba2476c/3_Corner_update.png",
@@ -67,6 +71,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 4,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Exported%20Web%20Video.mp4",
     defaultPos: { x: 0, y: 4, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/9e67e05f37e52522/4_corner_update.png",
@@ -80,6 +85,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 5,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Logo%20Exported.mp4",
     defaultPos: { x: 4, y: 4, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/9e67e05f37e52522/5_corner_update.png",
@@ -93,6 +99,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 6,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Animation%20Exported%20(4).mp4",
     defaultPos: { x: 8, y: 4, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/1199340587e8da1d/6_corner.png",
@@ -106,6 +113,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 7,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Illustration%20Exported%20(1).mp4",
     defaultPos: { x: 0, y: 8, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_corner.png",
@@ -119,6 +127,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 8,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Art%20Direction%20Exported.mp4",
     defaultPos: { x: 4, y: 8, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/981e483f71aa764b/8_corner.png",
@@ -132,6 +141,7 @@ const initialFrames: Frame[] = [
   },
   {
     id: 9,
+    tag: "Merch",
     video: "https://static.cdn-luma.com/files/58ab7363888153e3/Product%20Video.mp4",
     defaultPos: { x: 8, y: 8, w: 4, h: 4 },
     corner: "https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png",

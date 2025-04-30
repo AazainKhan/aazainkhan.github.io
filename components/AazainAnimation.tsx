@@ -980,7 +980,7 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
       {isGameMode && (
         <div 
           className="absolute flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white/10 text-white dark:text-white/90 rounded-full shadow-md hover:bg-gray-800 dark:hover:bg-white/20 transition-all z-10"
-          style={{ top: `${navHeight + 8}px`, left: '16px' }}
+          style={{ top: '5rem', left: '16px' }}
         >
           <span className="text-base font-medium">{hitPixels}/{totalPixels}</span>
         </div>
