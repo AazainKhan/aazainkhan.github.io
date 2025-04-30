@@ -22,6 +22,7 @@ interface Frame {
   borderSize: number
   autoplayMode: "all" | "hover"
   isHovered: boolean
+  lastPlaybackPosition?: number // Store the last playback position
 }
 
 const initialFrames: Frame[] = [

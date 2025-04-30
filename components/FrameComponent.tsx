@@ -46,8 +46,10 @@ export function FrameComponent({
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
+  const [hasStartedPlaying, setHasStartedPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
 
-  // Intersection Observer for lazy loading
+  // Intersection Observer for visibility tracking
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -68,9 +70,21 @@ export function FrameComponent({
     }
   }, [])
 
+  // Save video position when scrolling away
+  useEffect(() => {
+    if (!isInView && videoRef.current) {
+      setCurrentTime(videoRef.current.currentTime)
+    }
+  }, [isInView])
+
   // Handle video playback based on visibility and autoplay mode
   useEffect(() => {
     if (!videoRef.current) return
+
+    // When the video becomes visible again, restore its time position
+    if (isInView && currentTime > 0 && hasStartedPlaying) {
+      videoRef.current.currentTime = currentTime
+    }
 
     if (!isInView) {
       videoRef.current.pause()
@@ -78,10 +92,16 @@ export function FrameComponent({
     }
 
     if (autoplayMode === "all" || (autoplayMode === "hover" && isHovered)) {
-      videoRef.current.play().catch(() => {
+      videoRef.current.play().then(() => {
+        setHasStartedPlaying(true)
+      }).catch(() => {
         // Retry play on user interaction
         const playOnInteraction = () => {
-          videoRef.current?.play().catch(() => {})
+          if (videoRef.current) {
+            videoRef.current.play().then(() => {
+              setHasStartedPlaying(true)
+            }).catch(() => {})
+          }
           document.removeEventListener('click', playOnInteraction)
         }
         document.addEventListener('click', playOnInteraction, { once: true })
@@ -89,7 +109,7 @@ export function FrameComponent({
     } else {
       videoRef.current.pause()
     }
-  }, [isInView, isHovered, autoplayMode])
+  }, [isInView, isHovered, autoplayMode, currentTime, hasStartedPlaying])
 
   return (
     <div
@@ -125,11 +145,11 @@ export function FrameComponent({
           >
             <video
               className="w-full h-full object-cover"
-              src={isInView ? video : undefined}
-              data-src={video}
+              src={video} // Always load the video source
               loop
               muted
               playsInline
+              preload="auto"
               autoPlay={autoplayMode === "all"}
               ref={videoRef}
             />

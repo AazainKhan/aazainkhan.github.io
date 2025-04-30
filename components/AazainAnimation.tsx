@@ -101,6 +101,14 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
   const mousePositionRef = useRef<number | null>(null)
   const isMouseDownRef = useRef(false)
   
+  // Add state for tracking pixel hits and win condition
+  const [hitPixels, setHitPixels] = useState(0)
+  const [totalPixels, setTotalPixels] = useState(0)
+  const [showWinDialog, setShowWinDialog] = useState(false)
+  
+  // Add state for nav height to position counter correctly
+  const [navHeight, setNavHeight] = useState(0)
+  
   // Add state for client-side mounting
   const [isMounted, setIsMounted] = useState(false)
   
@@ -119,6 +127,12 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
     
     // Reinitialize the game state
     gameInitializedRef.current = false
+    
+    // Reset pixel counter
+    setHitPixels(0)
+    
+    // Reset win dialog
+    setShowWinDialog(false)
     
     // Force resize which will trigger full game reinitialization
     const resizeEvent = new Event('resize')
@@ -241,25 +255,81 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
       const scale = scaleRef.current
       const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window)
       // Make random pixels even bigger on mobile
-      const pixelSize = isMobile ? 10 * scale * 1.8 : 8 * scale * 1.5 // Significantly bigger on mobile
+      const pixelSize = isMobile ? 10 * scale * 2.5 : 8 * scale * 2 // Make significantly bigger
       const randomPixels: Pixel[] = []
       
-      // Create 20-30 random pixels - reduced count to make room for name
-      const pixelCount = Math.floor(Math.random() * 11) + 20
+      // Get the nav height
+      const navHeight = document.querySelector("nav")?.offsetHeight || 64
       
-      for (let i = 0; i < pixelCount; i++) {
-        const x = Math.random() * (canvas.width - pixelSize)
+      // Define a safe zone for the exit button in the top-right corner
+      const exitButtonSize = isMobile ? 60 : 40
+      const exitSafeZone = {
+        x: canvas.width - exitButtonSize * 1.5,
+        y: 0,
+        width: exitButtonSize * 1.5,
+        height: navHeight + exitButtonSize
+      }
+      
+      // Helper function to check if a new pixel overlaps with existing pixels
+      const checkOverlap = (newPixel: { x: number, y: number, size: number }) => {
+        // Check overlap with existing random pixels
+        for (const pixel of randomPixels) {
+          const distX = Math.abs((pixel.x + pixel.size/2) - (newPixel.x + newPixel.size/2))
+          const distY = Math.abs((pixel.y + pixel.size/2) - (newPixel.y + newPixel.size/2))
+          // Add a small gap between pixels
+          const minDist = (pixel.size + newPixel.size) / 2 + 5
+          if (distX < minDist && distY < minDist) {
+            return true
+          }
+        }
+        
+        // Check if pixel is under navbar
+        if (newPixel.y < navHeight) {
+          return true
+        }
+        
+        // Check if pixel is in exit button safe zone
+        if (
+          newPixel.x < exitSafeZone.x + exitSafeZone.width &&
+          newPixel.x + newPixel.size > exitSafeZone.x &&
+          newPixel.y < exitSafeZone.y + exitSafeZone.height &&
+          newPixel.y + newPixel.size > exitSafeZone.y
+        ) {
+          return true
+        }
+        
+        return false
+      }
+      
+      // Create 15-20 random pixels - reduced count because they're bigger
+      const pixelCount = Math.floor(Math.random() * 6) + 15
+      
+      // Attempt to place pixels in non-overlapping positions
+      let attempts = 0
+      const maxAttempts = 500
+      let i = 0
+      
+      while (i < pixelCount && attempts < maxAttempts) {
+        const x = Math.random() * (canvas.width - pixelSize - 10) + 5
         // Position pixels in top 60% of screen to avoid paddle area and make room for name
-        const y = Math.random() * (canvas.height * 0.6)
-        randomPixels.push({ x, y, size: pixelSize, hit: false })
+        const y = (Math.random() * (canvas.height * 0.5)) + navHeight
+        
+        const newPixel = { x, y, size: pixelSize, hit: false }
+        
+        if (!checkOverlap(newPixel)) {
+          randomPixels.push(newPixel)
+          i++
+        }
+        
+        attempts++
       }
       
       // Add "AAZAIN" in pixels in game mode for the player to break down
       const word = "AAZAIN"
       
-      // Calculate pixel size for the name - significantly larger than random pixels
-      // Make name pixels even larger on mobile
-      const namePixelSize = isMobile ? pixelSize * 1.8 : pixelSize * 1.5 // Extra large on mobile
+      // Calculate pixel size for the name - make them smaller to fit in the view
+      // Still larger than random pixels but not excessively large
+      const namePixelSize = isMobile ? pixelSize * 1.2 : pixelSize * 1.1 // Reduced size to fit in view
       
       // Calculate the word width to center it
       const calculateWordWidth = (word: string, pixelSize: number) => {
@@ -277,6 +347,24 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
       const startY = canvas.height * 0.25
       let startX = (canvas.width - totalWidth) / 2
       
+      // Calculate the bounds of the name to prevent random pixels from overlapping
+      const nameBounds = {
+        x: startX - namePixelSize,
+        y: startY - namePixelSize,
+        width: totalWidth + namePixelSize * 2,
+        height: 5 * namePixelSize + namePixelSize * 2 // 5 is the height of each letter in pixels
+      }
+      
+      // Filter out any random pixels that overlap with the name area
+      const filteredRandomPixels = randomPixels.filter(pixel => {
+        return !(
+          pixel.x < nameBounds.x + nameBounds.width &&
+          pixel.x + pixel.size > nameBounds.x &&
+          pixel.y < nameBounds.y + nameBounds.height &&
+          pixel.y + pixel.size > nameBounds.y
+        )
+      })
+      
       word.split("").forEach((letter) => {
         const pixelMap = PIXEL_MAP[letter as keyof typeof PIXEL_MAP]
         if (!pixelMap) return
@@ -286,14 +374,14 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
             if (pixelMap[i][j]) {
               const x = startX + j * namePixelSize
               const y = startY + i * namePixelSize
-              randomPixels.push({ x, y, size: namePixelSize, hit: false })
+              filteredRandomPixels.push({ x, y, size: namePixelSize, hit: false })
             }
           }
         }
         startX += (pixelMap[0].length + LETTER_SPACING) * namePixelSize
       })
       
-      return randomPixels
+      return filteredRandomPixels
     }
 
     const initializeGame = () => {
@@ -375,21 +463,32 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
         ballStartX = canvas.width * 0.5
         ballStartY = canvas.height * 0.2
       } else {
-        // In normal mode, start from top right corner
+        // In normal mode, start from top right corner but further down from navbar
         ballStartX = canvas.width * 0.9
-        ballStartY = canvas.height * 0.1
+        ballStartY = canvas.height * 0.25 // Moved down to 25% of height instead of 10%
       }
 
       // Use the stored ball speed to maintain consistent speed across theme changes
       const currentSpeed = ballSpeedRef.current
       
+      // Add a delay before ball starts moving in normal mode to avoid paddle collision
+      const initialDelay = !isGameModeRef.current
+      
       ballRef.current = {
         x: ballStartX,
         y: ballStartY,
-        dx: isGameModeRef.current ? 0 : -currentSpeed, // In game mode, start with no horizontal movement
-        dy: currentSpeed,
-        // Make ball bigger on mobile
-        radius: isMobile ? LARGE_PIXEL_SIZE * 0.8 : LARGE_PIXEL_SIZE / 2,
+        dx: isGameModeRef.current ? 0 : (initialDelay ? 0 : -currentSpeed), // Start with no movement if initialDelay
+        dy: isGameModeRef.current ? currentSpeed : (initialDelay ? 0 : currentSpeed), // Start with no movement if initialDelay
+        // Make ball bigger on mobile and significantly larger in both modes
+        radius: isMobile ? LARGE_PIXEL_SIZE * 1.2 : LARGE_PIXEL_SIZE * 0.8, // Much bigger ball for better gameplay
+      }
+      
+      // If in normal mode, set a timeout to start ball movement after a delay
+      if (initialDelay) {
+        setTimeout(() => {
+          ballRef.current.dx = -currentSpeed
+          ballRef.current.dy = currentSpeed
+        }, 1000) // 1 second delay
       }
 
       // Make paddles thicker
@@ -578,12 +677,21 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
           ball.y - ball.radius < pixel.y + pixel.size
         ) {
           pixel.hit = true
+          // Update hit pixels count
+          setHitPixels(prevCount => prevCount + 1)
+          
           const centerX = pixel.x + pixel.size / 2
           const centerY = pixel.y + pixel.size / 2
           if (Math.abs(ball.x - centerX) > Math.abs(ball.y - centerY)) {
             ball.dx = -ball.dx
           } else {
             ball.dy = -ball.dy
+          }
+          
+          // Check if all pixels are hit
+          const totalUnhitPixels = pixelsRef.current.filter(p => !p.hit).length
+          if (totalUnhitPixels === 0) {
+            setShowWinDialog(true)
           }
         }
       })
@@ -778,6 +886,61 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
     }
   }, [isMounted]) // Only run once isMounted is true
 
+  // When initializing the game, count the total pixels
+  useEffect(() => {
+    if (isMounted && isGameMode) {
+      // Update total pixels count whenever pixels are initialized
+      setTotalPixels(pixelsRef.current.length);
+    }
+  }, [isMounted, isGameMode]);
+
+  // Effect to get the navigation bar height for proper counter positioning
+  useEffect(() => {
+    if (isMounted) {
+      const updateNavHeight = () => {
+        const navElement = document.querySelector("nav");
+        if (navElement) {
+          setNavHeight(navElement.offsetHeight);
+        }
+      };
+      
+      updateNavHeight();
+      
+      // Create observer to handle nav height changes (e.g., on mobile)
+      const resizeObserver = new ResizeObserver(() => {
+        updateNavHeight();
+      });
+      
+      const navElement = document.querySelector("nav");
+      if (navElement) {
+        resizeObserver.observe(navElement);
+      }
+      
+      return () => {
+        if (navElement) {
+          resizeObserver.disconnect();
+        }
+      };
+    }
+  }, [isMounted]);
+
+  // Function to handle restarting the game
+  const handlePlayAgain = () => {
+    setShowWinDialog(false);
+    reinitializeGame();
+  };
+
+  // Function to handle exiting game mode
+  const handleExitGame = () => {
+    // We'll redirect to the normal mode
+    window.location.href = '/';
+  };
+
+  // Function to test the win dialog
+  const handleTestWinDialog = () => {
+    setShowWinDialog(true);
+  };
+
   // Function to handle the gradual fading of instructions
   const startInstructionsFade = () => {
     const fadeInterval = window.setInterval(() => {
@@ -806,11 +969,48 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full"
-      aria-label={isGameMode ? "Interactive Pong game" : "Aazain: Fullscreen Pong game with pixel text"}
-    />
+    <div className="relative w-full h-full">
+      <canvas
+        ref={canvasRef}
+        className="absolute top-0 left-0 w-full h-full"
+        aria-label={isGameMode ? "Interactive Pong game" : "Aazain: Fullscreen Pong game with pixel text"}
+      />
+      
+      {/* Pixel Counter Display in Game Mode */}
+      {isGameMode && (
+        <div 
+          className="absolute flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white/10 text-white dark:text-white/90 rounded-full shadow-md hover:bg-gray-800 dark:hover:bg-white/20 transition-all z-10"
+          style={{ top: `${navHeight + 8}px`, left: '16px' }}
+        >
+          <span className="text-base font-medium">{hitPixels}/{totalPixels}</span>
+        </div>
+      )}
+      
+      {/* Win Dialog */}
+      {showWinDialog && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 backdrop-blur-sm">
+          <div className="bg-card dark:bg-card text-card-foreground dark:text-card-foreground rounded-lg shadow-xl w-80 max-w-[90vw] overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-center mb-4">Yay You Win!</h2>
+              <div className="flex flex-col gap-3 mt-6">
+                <button
+                  onClick={handlePlayAgain}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 px-4 rounded-md shadow-md transition-colors"
+                >
+                  Play Again
+                </button>
+                <button
+                  onClick={handleExitGame}
+                  className="bg-background hover:bg-muted text-foreground border border-input font-medium py-2 px-4 rounded-md shadow-md transition-colors"
+                >
+                  Exit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 
