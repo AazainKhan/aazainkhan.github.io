@@ -43,10 +43,14 @@ export default function Home() {
   ]
 
   return (
-    <div className={`min-h-screen bg-white dark:bg-black ${ppEditorialNewUltralightItalic.variable} ${inter.variable}`}>
+    <div className={`min-h-screen themed-section ${ppEditorialNewUltralightItalic.variable} ${inter.variable}`} 
+         style={{ 
+           backgroundColor: `rgb(var(--background-start-rgb))`,
+           color: `rgb(var(--foreground-rgb))`
+         }}>
       <Navbar navLinks={navLinks} />
       {/* Use type assertion to make TypeScript happy with the ref types */}
-      <HeroSection targetRef={projectsRef as React.RefObject<HTMLDivElement>} />
+      <HeroSection targetRef={playRef as React.RefObject<HTMLDivElement>} />
       <PlaySection forwardedRef={playRef as React.RefObject<HTMLDivElement>} />
 
       <WorkSection forwardedRef={workRef as React.RefObject<HTMLDivElement>} />
