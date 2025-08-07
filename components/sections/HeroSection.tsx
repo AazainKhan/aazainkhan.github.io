@@ -74,7 +74,7 @@ export default function HeroSection({ targetRef }: HeroSectionProps) {
 
       {/* Scroll Down Animation - Only shown in non-game mode */}
       {!isGameMode && (
-        <div className="absolute bottom-40 md:bottom-36 left-0 right-0 flex justify-center">
+        <div className="absolute bottom-20 md:bottom-18 left-0 right-0 flex justify-center">
           <ScrollDownAnimation targetRef={targetRef} />
         </div>
       )}

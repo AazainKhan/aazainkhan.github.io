@@ -688,9 +688,9 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
             ball.dy = -ball.dy
           }
           
-          // Check if all pixels are hit
+          // Check if all pixels are hit (only show win dialog in game mode)
           const totalUnhitPixels = pixelsRef.current.filter(p => !p.hit).length
-          if (totalUnhitPixels === 0) {
+          if (totalUnhitPixels === 0 && isGameModeRef.current) {
             setShowWinDialog(true)
           }
         }

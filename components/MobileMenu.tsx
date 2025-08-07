@@ -5,6 +5,7 @@ import { Menu, X, Github, Linkedin, Mail } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import ThemeToggle from "./ThemeToggle"
+import { useTheme } from "next-themes"
 
 interface MobileMenuProps {
   links: {
@@ -16,6 +17,7 @@ interface MobileMenuProps {
 export function MobileMenu({ links }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const { theme } = useTheme()
 
   // Close menu when screen size changes to desktop
   useEffect(() => {
@@ -50,12 +52,15 @@ export function MobileMenu({ links }: MobileMenuProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"
+      document.body.classList.add("menu-open")
     } else {
       document.body.style.overflow = ""
+      document.body.classList.remove("menu-open")
     }
 
     return () => {
       document.body.style.overflow = ""
+      document.body.classList.remove("menu-open")
     }
   }, [isOpen])
 
@@ -72,14 +77,8 @@ export function MobileMenu({ links }: MobileMenuProps) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md pt-20"
-          >
-            <div className="relative z-50">
+          <div className="fixed inset-0 z-40 bg-white dark:bg-gray-900 mobile-menu-container" style={{ backgroundColor: theme === 'dark' ? '#111827' : '#ffffff', opacity: 1 }}>
+            <div className="pt-20">
               <div className="container mx-auto px-6">
                 <nav className="flex flex-col items-center space-y-8 py-8">
                   {links.map((link, index) => (
@@ -92,7 +91,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                         link.onClick()
                         setIsOpen(false)
                       }}
-                      className="text-gray-800 dark:text-white text-2xl font-light tracking-wide"
+                      className="text-gray-900 dark:text-white text-2xl font-light tracking-wide hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                     >
                       {link.name}
                     </motion.button>
@@ -109,7 +108,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                   </motion.div>
 
                   {/* Social Icons */}
-                  <div className="flex gap-6 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700/30 w-48">
+                  <div className="flex gap-6 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700/30 justify-center">
                     <Link href="https://github.com/aazainkhan" target="_blank" rel="noopener noreferrer">
                       <Github className="w-6 h-6 text-gray-700 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors" />
                     </Link>
@@ -123,7 +122,7 @@ export function MobileMenu({ links }: MobileMenuProps) {
                 </nav>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

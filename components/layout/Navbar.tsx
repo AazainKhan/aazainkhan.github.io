@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import MobileMenu from "./MobileMenu"
+import MobileMenu from "../MobileMenu"
 import ThemeToggle from "../ThemeToggle"
 import { motion } from "framer-motion"
 import { useState } from "react"
