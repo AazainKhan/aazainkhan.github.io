@@ -12,12 +12,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
-  },
-  output: 'export',
-  basePath: '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/' : '',
   reactStrictMode: true,
   poweredByHeader: false,
   compiler: {
@@ -26,6 +20,13 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  // Cloudflare Pages optimizations
+  images: {
+    unoptimized: true,
+  },
+  // Performance optimizations for Cloudflare
+  compress: true,
+  generateEtags: false,
 }
 
 export default withBundleAnalyzer(nextConfig)
