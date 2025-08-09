@@ -835,9 +835,10 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
     // Set up event listeners
     window.addEventListener("keydown", handleKeyDown)
     window.addEventListener("keyup", handleKeyUp)
-    canvas.addEventListener("touchstart", handleTouchStart)
-    canvas.addEventListener("touchmove", handleTouchMove)
-    canvas.addEventListener("touchend", handleTouchEnd)
+  canvas.addEventListener("touchstart", handleTouchStart, { passive: true })
+  // touchmove must be non-passive to allow preventDefault during game interactions
+  canvas.addEventListener("touchmove", handleTouchMove, { passive: false })
+  canvas.addEventListener("touchend", handleTouchEnd, { passive: true })
     window.addEventListener("resize", resizeCanvas)
 
     // Add mouse event listeners
@@ -866,9 +867,9 @@ export function AazainAnimation({ isGameMode = false }: AazainAnimationProps) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("keyup", handleKeyUp)
-      canvas.removeEventListener("touchstart", handleTouchStart)
-      canvas.removeEventListener("touchmove", handleTouchMove)
-      canvas.removeEventListener("touchend", handleTouchEnd)
+  canvas.removeEventListener("touchstart", handleTouchStart)
+  canvas.removeEventListener("touchmove", handleTouchMove)
+  canvas.removeEventListener("touchend", handleTouchEnd)
       window.removeEventListener("resize", resizeCanvas)
       
       // Remove mouse event listeners

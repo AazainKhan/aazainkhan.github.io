@@ -48,6 +48,7 @@ export function FrameComponent({
   const [isInView, setIsInView] = useState(false)
   const [hasStartedPlaying, setHasStartedPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
+  const [canLoadMedia, setCanLoadMedia] = useState(false)
 
   // Intersection Observer for visibility tracking
   useEffect(() => {
@@ -59,7 +60,7 @@ export function FrameComponent({
       { threshold: 0.1, rootMargin: "50px" }
     )
 
-    if (containerRef.current) {
+  if (containerRef.current) {
       observer.observe(containerRef.current)
     }
 
@@ -70,6 +71,11 @@ export function FrameComponent({
     }
   }, [])
 
+  // Only allow media to load when in view to reduce initial payload
+  useEffect(() => {
+    if (isInView) setCanLoadMedia(true)
+  }, [isInView])
+
   // Save video position when scrolling away
   useEffect(() => {
     if (!isInView && videoRef.current) {
@@ -79,14 +85,14 @@ export function FrameComponent({
 
   // Handle video playback based on visibility and autoplay mode
   useEffect(() => {
-    if (!videoRef.current) return
+  if (!videoRef.current) return
 
     // When the video becomes visible again, restore its time position
     if (isInView && currentTime > 0 && hasStartedPlaying) {
       videoRef.current.currentTime = currentTime
     }
 
-    if (!isInView) {
+  if (!isInView) {
       videoRef.current.pause()
       return
     }
@@ -104,7 +110,7 @@ export function FrameComponent({
           }
           document.removeEventListener('click', playOnInteraction)
         }
-        document.addEventListener('click', playOnInteraction, { once: true })
+          document.addEventListener('click', playOnInteraction, { once: true })
       })
     } else {
       videoRef.current.pause()
@@ -143,16 +149,18 @@ export function FrameComponent({
               transition: "transform 0.3s ease-in-out",
             }}
           >
-            <video
-              className="w-full h-full object-cover"
-              src={video} // Always load the video source
-              loop
-              muted
-              playsInline
-              preload="auto"
-              autoPlay={autoplayMode === "all"}
-              ref={videoRef}
-            />
+            {canLoadMedia && (
+              <video
+                className="w-full h-full object-cover"
+                src={video}
+                loop
+                muted
+                playsInline
+                preload="none"
+                autoPlay={autoplayMode === "all"}
+                ref={videoRef}
+              />
+            )}
           </div>
         </div>
 
@@ -162,26 +170,26 @@ export function FrameComponent({
             {/* Corners */}
             <div
               className="absolute top-0 left-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, backgroundSize: 'contain' }}
+              style={{ backgroundImage: canLoadMedia ? `url(${corner})` : 'none', backgroundSize: 'contain' }}
             />
             <div
               className="absolute top-0 right-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, transform: "scaleX(-1)", backgroundSize: 'contain' }}
+              style={{ backgroundImage: canLoadMedia ? `url(${corner})` : 'none', transform: "scaleX(-1)", backgroundSize: 'contain' }}
             />
             <div
               className="absolute bottom-0 left-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, transform: "scaleY(-1)", backgroundSize: 'contain' }}
+              style={{ backgroundImage: canLoadMedia ? `url(${corner})` : 'none', transform: "scaleY(-1)", backgroundSize: 'contain' }}
             />
             <div
               className="absolute bottom-0 right-0 w-16 h-16 bg-contain bg-no-repeat"
-              style={{ backgroundImage: `url(${corner})`, transform: "scale(-1, -1)", backgroundSize: 'contain' }}
+              style={{ backgroundImage: canLoadMedia ? `url(${corner})` : 'none', transform: "scale(-1, -1)", backgroundSize: 'contain' }}
             />
 
             {/* Edges */}
             <div
               className="absolute top-0 left-16 right-16 h-16"
               style={{
-                backgroundImage: `url(${edgeHorizontal})`,
+                backgroundImage: canLoadMedia ? `url(${edgeHorizontal})` : 'none',
                 backgroundSize: "auto 64px",
                 backgroundRepeat: "repeat-x",
               }}
@@ -189,7 +197,7 @@ export function FrameComponent({
             <div
               className="absolute bottom-0 left-16 right-16 h-16"
               style={{
-                backgroundImage: `url(${edgeHorizontal})`,
+                backgroundImage: canLoadMedia ? `url(${edgeHorizontal})` : 'none',
                 backgroundSize: "auto 64px",
                 backgroundRepeat: "repeat-x",
                 transform: "rotate(180deg)",
@@ -198,7 +206,7 @@ export function FrameComponent({
             <div
               className="absolute left-0 top-16 bottom-16 w-16"
               style={{
-                backgroundImage: `url(${edgeVertical})`,
+                backgroundImage: canLoadMedia ? `url(${edgeVertical})` : 'none',
                 backgroundSize: "64px auto",
                 backgroundRepeat: "repeat-y",
               }}
@@ -206,7 +214,7 @@ export function FrameComponent({
             <div
               className="absolute right-0 top-16 bottom-16 w-16"
               style={{
-                backgroundImage: `url(${edgeVertical})`,
+                backgroundImage: canLoadMedia ? `url(${edgeVertical})` : 'none',
                 backgroundSize: "64px auto",
                 backgroundRepeat: "repeat-y",
                 transform: "scaleX(-1)",

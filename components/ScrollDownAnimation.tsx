@@ -14,16 +14,19 @@ export function ScrollDownAnimation({ targetRef }: ScrollDownAnimationProps) {
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(false)
-      } else {
-        setIsVisible(true)
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(() => {
+          setIsVisible(window.scrollY <= 100)
+          ticking = false
+        })
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll as EventListener)
   }, [])
 
   const scrollToTarget = () => {

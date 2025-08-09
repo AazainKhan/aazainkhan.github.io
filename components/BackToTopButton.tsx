@@ -9,16 +9,19 @@ export function BackToTopButton() {
 
   // Show button when scrolled down 500px
   useEffect(() => {
+    let ticking = false
     const toggleVisibility = () => {
-      if (window.scrollY > 500) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(() => {
+          setIsVisible(window.scrollY > 500)
+          ticking = false
+        })
       }
     }
 
-    window.addEventListener("scroll", toggleVisibility)
-    return () => window.removeEventListener("scroll", toggleVisibility)
+    window.addEventListener("scroll", toggleVisibility, { passive: true })
+    return () => window.removeEventListener("scroll", toggleVisibility as EventListener)
   }, [])
 
   const scrollToTop = () => {

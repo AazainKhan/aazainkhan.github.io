@@ -320,6 +320,7 @@ export default function DynamicFrameLayout() {
               onMouseEnter={() => setHovered({ row, col })}
               onMouseLeave={() => setHovered(null)}
             >
+              {showFrames ? (
               <FrameComponent
                 video={frame.video}
                 width="100%"
@@ -340,6 +341,7 @@ export default function DynamicFrameLayout() {
                 autoplayMode={autoplayMode}
                 isHovered={isFrameHovered}
               />
+              ) : null}
             </motion.div>
           )
         })}

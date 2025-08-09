@@ -31,7 +31,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://static.cdn-luma.com" />
+  <link rel="preconnect" href="https://static.cdn-luma.com" crossOrigin="anonymous" />
+  <link rel="preconnect" href="https://static.cloudflareinsights.com" crossOrigin="anonymous" />
+  <link
+    rel="preload"
+    href="/fonts/PPEditorialNew-UltralightItalic.woff2"
+    as="font"
+    type="font/woff2"
+    crossOrigin="anonymous"
+  />
+  {/* Preload small critical CSS chunks if needed (kept minimal) */}
       </head>
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
