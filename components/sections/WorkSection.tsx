@@ -1,27 +1,45 @@
 "use client"
 
 import type React from "react"
-
+import { motion } from "framer-motion"
 import { ppEditorialNewUltralightItalic } from "@/app/fonts"
+import { useScrollAnimation, slideUpVariants, staggerContainerVariants, staggerItemVariants, slideInFromLeftVariants } from "@/hooks/use-scroll-animation"
 
 export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefObject<HTMLDivElement> }) {
+  const { ref: titleRef, isInView: titleInView } = useScrollAnimation({ delay: 100 })
+  const { ref: timelineRef, isInView: timelineInView } = useScrollAnimation({ delay: 200 })
+  
   return (
     <section ref={forwardedRef} className="min-h-screen py-20 px-4 sm:px-8">
       <div className="container mx-auto">
-        <h2
-          className={`${ppEditorialNewUltralightItalic.className} text-4xl md:text-6xl font-light italic text-gray-800 dark:text-white/80 tracking-tighter mb-16`}
-        >
-          Work
-        </h2>
+        <motion.div ref={titleRef}>
+          <motion.h2
+            className={`${ppEditorialNewUltralightItalic.className} text-4xl md:text-6xl font-light italic text-gray-800 dark:text-white/80 tracking-tighter mb-16`}
+            variants={slideUpVariants}
+            initial="hidden"
+            animate={titleInView ? "visible" : "hidden"}
+          >
+            Work
+          </motion.h2>
+        </motion.div>
 
         {/* Timeline layout for work experience */}
-        <div className="relative">
+        <motion.div 
+          ref={timelineRef}
+          className="relative"
+          variants={staggerContainerVariants}
+          initial="hidden"
+          animate={timelineInView ? "visible" : "hidden"}
+        >
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-6 top-0 bottom-0 w-px bg-gray-300 dark:bg-white/20"></div>
+          <motion.div 
+            className="absolute left-0 md:left-6 top-0 bottom-0 w-px bg-gray-300 dark:bg-white/20"
+            variants={slideInFromLeftVariants}
+          />
 
           <div className="space-y-16 pl-8 md:pl-16">
             {/* Job 1 */}
-            <div className="relative">
+            <motion.div className="relative" variants={staggerItemVariants}>
               {/* Modern timeline marker - horizontal line with gradient */}
               <div className="absolute -left-8 md:-left-16 top-4">
                 <div className="h-px w-8 md:w-10 bg-gradient-to-r from-gray-400 dark:from-white/60 to-transparent"></div>
@@ -68,10 +86,10 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Job 2 */}
-            <div className="relative">
+            <motion.div className="relative" variants={staggerItemVariants}>
               {/* Modern timeline marker - horizontal line with gradient */}
               <div className="absolute -left-8 md:-left-16 top-4">
                 <div className="h-px w-8 md:w-10 bg-gradient-to-r from-gray-400 dark:from-white/60 to-transparent"></div>
@@ -83,44 +101,42 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                   <h3
                     className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/80 mb-2`}
                   >
-                    IT Technical Analyst
+                    Full-Stack Developer (Contract)
                   </h3>
-                  <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">
-                    Ministry of Public and Business Service Delivery
-                  </h4>
+                  <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">Ministry of Health</h4>
                   
                   {/* Date displayed in mobile view right after company name */}
                   <div className="block md:hidden mb-4">
                     <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
-                      May 2024 – Aug 2024
+                      May 2024 – Jul 2024
                     </span>
                   </div>
                   
                   <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-3">
                     <li>
-                      Transformed legacy system migration by taking initiative beyond role expectations, identifying
-                      pain points and implementing solutions without waiting for formal approvals.
+                      Built a modern web application using React, TypeScript, and Tailwind CSS for internal staff
+                      management, replacing outdated legacy systems with improved user experience.
                     </li>
                     <li>
-                      Built internal tools with scrappy, founder-like mentality, creating solutions that bypassed
-                      bureaucratic hurdles and delivered immediate value to users.
+                      Designed and implemented responsive UI components that work across devices, ensuring accessibility
+                      for government employees with varying technical skills and device preferences.
                     </li>
                     <li>
-                      Rapidly prototyped and iterated on data visualization dashboards, continuously refining based on
-                      user feedback rather than following rigid specifications.
+                      Developed secure authentication systems and database integrations while following government
+                      security protocols and data protection requirements.
                     </li>
                   </ul>
                 </div>
                 <div className="hidden md:block md:w-48 shrink-0">
                   <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
-                    May 2024 – Aug 2024
+                    May 2024 – Jul 2024
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Job 3 */}
-            <div className="relative">
+            <motion.div className="relative" variants={staggerItemVariants}>
               {/* Modern timeline marker - horizontal line with gradient */}
               <div className="absolute -left-8 md:-left-16 top-4">
                 <div className="h-px w-8 md:w-10 bg-gradient-to-r from-gray-400 dark:from-white/60 to-transparent"></div>
@@ -132,100 +148,100 @@ export default function WorkSection({ forwardedRef }: { forwardedRef: React.RefO
                   <h3
                     className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/80 mb-2`}
                   >
-                    Wireless Consultant
+                    Coding Instructor & Mentor
                   </h3>
-                  <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">Staples</h4>
+                  <h4 className="text-gray-700 dark:text-white/70 text-lg mb-4">Code Ninjas</h4>
                   
                   {/* Date displayed in mobile view right after company name */}
                   <div className="block md:hidden mb-4">
                     <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
-                      Jun 2023 – Feb 2024
+                      Sep 2022 – Apr 2024
                     </span>
                   </div>
                   
                   <ul className="text-gray-600 dark:text-white/50 leading-relaxed list-disc pl-5 space-y-3">
                     <li>
-                      Leveraged expertise in wireless and wire-line solutions for consumer and small business needs,
-                      providing open-ended consulting, contract estimates, and after-sales support to enhance customer
-                      retention.
+                      Taught programming fundamentals to 50+ students aged 8-18, using game-based learning to make
+                      coding concepts accessible and engaging for different learning styles.
                     </li>
                     <li>
-                      Coordinated with cross-functional teams to design and deploy promotional campaigns, resulting in a
-                      25% increase in weekly customer engagement and sales conversions.
+                      Mentored students through complex projects including mobile apps and web games, developing
+                      patient communication skills while helping them debug and problem-solve independently.
+                    </li>
+                    <li>
+                      Created custom lesson plans and coding challenges that balanced technical rigor with age-appropriate
+                      engagement, fostering both technical skills and creative problem-solving abilities.
                     </li>
                   </ul>
                 </div>
                 <div className="hidden md:block md:w-48 shrink-0">
                   <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 rounded-full text-sm">
-                    Jun 2023 – Feb 2024
+                    Sep 2022 – Apr 2024
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Technical Skills */}
-        <div className="mt-24 bg-gray-50 dark:bg-white/5 p-6 md:p-8 rounded-lg">
-          <h3
-            className={`${ppEditorialNewUltralightItalic.className} text-2xl md:text-3xl text-gray-800 dark:text-white/80 mb-6`}
+        <motion.div 
+          className="mt-20"
+          variants={staggerContainerVariants}
+          initial="hidden"
+          animate={timelineInView ? "visible" : "hidden"}
+        >
+          <motion.h3
+            className={`${ppEditorialNewUltralightItalic.className} text-3xl md:text-4xl font-light italic text-gray-800 dark:text-white/80 tracking-tighter mb-8`}
+            variants={staggerItemVariants}
           >
             Technical Skills
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+          </motion.h3>
+          
+          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8" variants={staggerItemVariants}>
             <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                Languages
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">
-                Python, Java, JavaScript, C++, SQL, PL/SQL, HTML 5, CSS, PHP, Bash
-              </p>
+              <h4 className="text-gray-700 dark:text-white/70 font-medium mb-4">Frontend</h4>
+              <div className="flex flex-wrap gap-2">
+                {["React", "TypeScript", "Next.js", "Tailwind CSS", "HTML/CSS", "JavaScript"].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 text-sm rounded-full"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
+            
             <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                Frameworks
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">
-                React, NodeJS, Express, Flask, Pytest, Bootstrap, TailwindCSS
-              </p>
+              <h4 className="text-gray-700 dark:text-white/70 font-medium mb-4">Backend & Tools</h4>
+              <div className="flex flex-wrap gap-2">
+                {["Python", "Node.js", "Express", "PostgreSQL", "Git", "REST APIs"].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 text-sm rounded-full"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
+            
             <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                Tools
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">
-                Power BI, Power Platform, Git, Docker, Postman, Jira, GitHub, GitLab, Jupyter Notebook, Office 365,
-                Pipelines
-              </p>
+              <h4 className="text-gray-700 dark:text-white/70 font-medium mb-4">AI/ML & Cloud</h4>
+              <div className="flex flex-wrap gap-2">
+                {["Machine Learning", "Data Analysis", "AWS", "Cloud Functions", "Docker"].map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-white/70 text-sm rounded-full"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                Libraries
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">
-                Mongoose, NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn, TensorFlow
-              </p>
-            </div>
-            <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                ML/AI
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">Scikit-learn, TensorFlow, PyTorch, Keras</p>
-            </div>
-            <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                Databases
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">MongoDB, MySQL</p>
-            </div>
-            <div>
-              <h4 className="text-gray-700 dark:text-white/70 text-lg mb-3 border-b border-gray-200 dark:border-white/20 pb-2">
-                Operating Systems
-              </h4>
-              <p className="text-gray-600 dark:text-white/50">Windows, UNIX, Linux, MacOS</p>
-            </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

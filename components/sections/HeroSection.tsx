@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { Play, X } from "lucide-react"
 import { AazainAnimation } from "../AazainAnimation"
 import ScrollDownAnimation from "../ScrollDownAnimation"
@@ -39,15 +40,21 @@ export default function HeroSection({ targetRef }: HeroSectionProps) {
 
       {/* Description text overlaid on animation - positioned lower to avoid overlap with pixels */}
       {!isGameMode && (
-        <div className="absolute z-10 text-center w-full" style={{ 
-          bottom: 'min(30%, calc(30% + 20px))',  
-          paddingTop: '2rem' // Extra padding to ensure separation from AAZAIN animation
-        }}>
+        <motion.div 
+          className="absolute z-10 text-center w-full" 
+          style={{ 
+            bottom: 'min(30%, calc(30% + 20px))',  
+            paddingTop: '2rem' // Extra padding to ensure separation from AAZAIN animation
+          }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
           <p className="text-gray-600 dark:text-white/60 font-light tracking-wide text-lg md:text-xl 
              bg-white/30 dark:bg-black/30 py-2 px-4 rounded-lg mx-auto inline-block">
             Full-stack developer. AI/ML. Friendly neighborhood tech guy.
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* Play/Exit Button - Positioned at top right for easy access */}
